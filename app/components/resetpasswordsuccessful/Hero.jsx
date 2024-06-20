@@ -26,8 +26,8 @@ export const Hero = ({ userEmail, lng }) => {
               <br />
               <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-white">
                 {lng === "ka"
-                  ? " თქვენი პაროლი წარმატებით გადაკეთდა EduSpace-ზე."
-                  : "Your password has been successfully reset on EduSpace."}
+                  ? " თქვენი პაროლი წარმატებით გადაკეთდა QuizHub-ზე."
+                  : "Your password has been successfully reset on QuizHub."}
                 <br />
               </p>
             </p>

@@ -7,7 +7,7 @@ import Authentication from "@/app/api/user/auth";
 import { signOut } from "next-auth/react";
 import Styles from "@/styles/loader.module.css";
 import Image from "next/image";
-import EduSpace from "@/public/EduSpaceLogo.png";
+import QuizHub from "@/public/QuizHubLogo.png";
 
 interface CustomSession extends Session {
   provider?: string;
@@ -101,7 +101,7 @@ export default function OauthPage() {
     <section className="flex flex-col items-center  justify-center gap-4 py-8 md:py-10 mt-20">
       <div className={Styles.Loader}>
         <Image
-          src={EduSpace}
+          src={QuizHub}
           alt="Description of the image"
           width={100} // Specify the width of the image
           height={100}

@@ -4,9 +4,9 @@ import { Locale } from "@/i18n.config";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Reset Password | EduSpace",
+  title: "Reset Password | QuizHub",
   description:
-    "Verify your account and gain access to EduSpace, an online learning platform",
+    "Verify your account and gain access to QuizHub, an online learning platform",
   keywords: ["resetpassword", "authentication", "account", "online learning"],
 };
 

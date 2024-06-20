@@ -15,8 +15,8 @@ export const Hero = ({ userEmail, userName, lng }) => {
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-white">
               {lng === "ka"
-                ? "რეგისტრაცია წარმატებულად EduSpace-ზე გაიარე!"
-                : "You have successfully registered on EduSpace!"}
+                ? "რეგისტრაცია წარმატებულად QuizHub-ზე გაიარე!"
+                : "You have successfully registered on QuizHub!"}
               <br />
               {lng === "ka"
                 ? `ელფოსტა გაიგზავნა ${userEmail} ანგარიშზე პროფილის დასადასტურებლად. გთხოვთ, შეამოწმოთ თქვენი ელფოსტა და დააჭიროთ დამადასტურებელ ბმულზე თქვენი ანგარიშის გასააქტიურებლად.`

@@ -3,9 +3,9 @@ import { Metadata } from "next";
 import SSRResetSuccess from "@/app/[lang]/user/reset-password/resetpassword-successful/ssrresetsucess";
 
 export const metadata: Metadata = {
-  title: "Reset Password | EduSpace",
+  title: "Reset Password | QuizHub",
   description:
-    "Verify your account and gain access to EduSpace, an online learning platform",
+    "Verify your account and gain access to QuizHub, an online learning platform",
   keywords: ["resetpassword", "authentication", "account", "online learning"],
 };
 

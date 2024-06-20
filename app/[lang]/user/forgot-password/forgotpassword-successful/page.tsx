@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import SSRFPS from "@/app/[lang]/user/forgot-password/forgotpassword-successful/ssrFPS";
 
 export const metadata: Metadata = {
-  title: "Forgot Password Successfull | EduSpace",
+  title: "Forgot Password Successfull | QuizHub",
   description: "Forgot your password? No worries, we got you covered",
   keywords: [
     "forgot password successfull",

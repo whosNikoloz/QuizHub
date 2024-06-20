@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import SSRFP from "@/app/[lang]/user/forgot-password/ssrFP";
 
 export const metadata: Metadata = {
-  title: "Forgot Password | EduSpace",
+  title: "Forgot Password | QuizHub",
   description: "Forgot your password? No worries, we got you covered",
   keywords: ["forgot password", "authentication", "account", "online learning"],
 };
