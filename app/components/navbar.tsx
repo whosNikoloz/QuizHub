@@ -8,6 +8,7 @@ import NDropdown from "@/app/components/navdropdown";
 import { usePathname, useRouter } from "next/navigation";
 import UDropdown from "./Userdropdown";
 import AuthModals from "./user/auth";
+import { QuizHub } from "./QuizHubLogo";
 
 export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -142,7 +143,9 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
                 <div className="flex flex-shrink-0 items-center">
-                  <Link href={`/${lng}`}>{/* <EduSpace /> */}</Link>
+                  <Link href={`/${lng}`}>
+                    <QuizHub />
+                  </Link>
                   <Link
                     href={`/${lng}`}
                     className={`font-bold text-inherit dark:text-white text-black`}
@@ -155,15 +158,15 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                   <div className="flex space-x-4">
                     <Link
                       href={`/${lng}/social`}
-                      className={`p-0 bg-transparent data-[hover=true]:bg-transparent font-bold text-md dark:text-blue-500 text-blue-800`}
+                      className={`p-0 bg-transparent data-[hover=true]:bg-transparent font-bold text-md dark:text-yellow-300 text-yellow-600`}
                     >
-                      {lng === "en" ? "Social" : "სოციალური"}
+                      {lng === "en" ? "PAGE1" : "PAGE1ქარ"}
                     </Link>
                     <Link
                       href={`/${lng}/compiler/csharp`}
                       className={`p-0 bg-transparent data-[hover=true]:bg-transparent font-bold text-md dark:text-white text-black `}
                     >
-                      Compiler
+                      PAGE2
                     </Link>
                     <Select
                       className={`w-[150px] mb-1 `}
@@ -171,8 +174,7 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                       onChange={(event: { target: { value: string } }) =>
                         handleLanguageChange(event.target.value)
                       }
-                      variant="bordered"
-                      color="primary"
+                      color="warning"
                       aria-label="Select Language"
                       labelPlacement="outside"
                       defaultSelectedKeys={[lng || `ka`]}
@@ -224,13 +226,11 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                   // Render this content if user is null
                   <>
                     <div className="relative ml-3">
-                      <Button
-                        className="bg-blue-600 text-white"
-                        color="primary"
-                        variant="shadow"
-                      >
-                        {lng === "en" ? "Start" : "დაწყება"}
-                      </Button>
+                      <AuthModals
+                        params={{
+                          lang: lng === "en" ? "en" : "ka",
+                        }}
+                      />
                     </div>
                   </>
                 )}
@@ -301,7 +301,9 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
                 <div className="flex flex-shrink-0 items-center">
-                  <Link href={`/${lng}`}>{/* <EduSpace /> */}</Link>
+                  <Link href={`/${lng}`}>
+                    <QuizHub />
+                  </Link>
                   <Link
                     href={`/${lng}`}
                     className={`font-bold text-inherit  ${
@@ -320,11 +322,11 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                       href={`/${lng}/social`}
                       className={`p-0 bg-transparent data-[hover=true]:bg-transparent transition-colors font-bold text-md ${
                         isScrolled
-                          ? "dark:text-blue-500 text-blue-800"
-                          : "dark:text-blue-500 text-blue-400"
+                          ? "dark:text-yellow-300 text-yellow-600"
+                          : "dark:text-yellow-300 text-yellow-300"
                       }`}
                     >
-                      {lng === "en" ? "Social" : "სოციალური"}
+                      {lng === "en" ? "PAGE1" : "PAGE1ქარ"}
                     </Link>
                     <Link
                       href={`/${lng}/compiler/csharp`}
@@ -334,7 +336,7 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                           : "dark:text-white text-white "
                       }`}
                     >
-                      Compiler
+                      PAGE2
                     </Link>
                     <Select
                       className={`w-[150px] mb-1${
@@ -346,7 +348,7 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                       }
                       aria-label="Select Language"
                       variant="bordered"
-                      color="primary"
+                      color="warning"
                       labelPlacement="outside"
                       defaultSelectedKeys={[lng || `ka`]}
                       startContent={lngstartCon}

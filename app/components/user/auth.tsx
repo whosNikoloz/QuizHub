@@ -390,8 +390,8 @@ export default function AuthModals({
         />
       </header>
       <Button
-        className="bg-blue-600 text-white"
-        color="primary"
+        className=" text-white"
+        color="warning"
         variant="shadow"
         onClick={() => onOpenLogin()}
       >
@@ -489,14 +489,15 @@ export default function AuthModals({
               </div>
               <div className="flex justify-center items-center gap-2">
                 <Button
-                  color="danger"
+                  color="default"
                   variant="flat"
                   onPress={() => handleModeToggle("Signup")}
                 >
                   {regData.title}
                 </Button>
                 <Button
-                  color="primary"
+                  color="warning"
+                  className="text-white"
                   isLoading={isLoading}
                   onPress={handleLogin}
                 >
@@ -652,14 +653,15 @@ export default function AuthModals({
             </div>
             <div className="flex justify-center items-center gap-2">
               <Button
-                color="danger"
+                color="default"
                 variant="flat"
                 onPress={() => handleModeToggle("login")}
               >
                 {loginData.title}
               </Button>
               <Button
-                color="primary"
+                color="warning"
+                className="text-white"
                 isLoading={isLoading}
                 onPress={onCloseLogin}
               >

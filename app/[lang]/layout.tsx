@@ -26,7 +26,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="icon" href="/QuizHub.ico" sizes="any" />
+        <link rel="icon" href="/QuizHubLogo.png" sizes="any" />
       </head>
       <body /*className={clsx(fontSans.variable)}*/>
         <Providers

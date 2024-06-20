@@ -61,7 +61,7 @@ function UDropdown({
         >
           <Avatar
             isBordered
-            color="primary"
+            color="warning"
             name={username}
             className={`transition-transform ${
               isOpen ? "scale-90 " : "scale-100"

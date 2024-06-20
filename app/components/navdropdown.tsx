@@ -19,7 +19,7 @@ import { usePathname, useRouter } from "next/navigation";
 const menuItems = {
   en: [
     {
-      label: "Social",
+      label: "PAGE1",
       href: "/social",
       svg: (
         <SocialIcon
@@ -32,7 +32,7 @@ const menuItems = {
       submenu: [],
     },
     {
-      label: "Compiler",
+      label: "PAGE2",
       href: "/compiler/csharp",
       svg: (
         <CompilerIcon size={undefined} height={undefined} width={undefined} />
@@ -42,7 +42,7 @@ const menuItems = {
   ],
   ka: [
     {
-      label: "სოციალური",
+      label: "PAGE1",
       href: "/social",
       svg: (
         <SocialIcon
@@ -55,7 +55,7 @@ const menuItems = {
       submenu: [],
     },
     {
-      label: "Compiler",
+      label: "PAGE2",
       href: "/compiler/csharp",
       svg: (
         <CompilerIcon size={undefined} height={undefined} width={undefined} />
@@ -311,6 +311,7 @@ function NDropdown({
                 variant="underlined"
                 onChange={handleThemeChange}
                 aria-label="Select theme"
+                color="warning"
                 labelPlacement="outside"
                 defaultSelectedKeys={[theme || "system"]}
                 startContent={startCon}
@@ -354,6 +355,7 @@ function NDropdown({
                   handleLanguageChange(event.target.value)
                 }
                 aria-label="Select Language"
+                color="warning"
                 labelPlacement="outside"
                 defaultSelectedKeys={[lng || `ka`]}
                 startContent={lngstartCon}
