@@ -7,6 +7,7 @@ import { useUser } from "@/app/dbcontext/UserDbContext";
 import NDropdown from "@/app/components/navdropdown";
 import { usePathname, useRouter } from "next/navigation";
 import UDropdown from "./Userdropdown";
+import AuthModals from "./user/auth";
 
 export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -57,6 +58,7 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
     router.push(newPath);
     return newPath;
   };
+  const [authOpen, setAuthOpen] = useState(false);
 
   useEffect(() => {
     switch (lng) {
@@ -222,18 +224,13 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                   // Render this content if user is null
                   <>
                     <div className="relative ml-3">
-                      <Link
-                        href={`/${lng}/user/auth`}
-                        aria-label="Start User Authentication"
+                      <Button
+                        className="bg-blue-600 text-white"
+                        color="primary"
+                        variant="shadow"
                       >
-                        <Button
-                          className="bg-blue-600 text-white"
-                          color="primary"
-                          variant="shadow"
-                        >
-                          {lng === "en" ? "Start" : "დაწყება"}
-                        </Button>
-                      </Link>
+                        {lng === "en" ? "Start" : "დაწყება"}
+                      </Button>
                     </div>
                   </>
                 )}
@@ -404,18 +401,16 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                   // Render this content if user is null
                   <>
                     <div className="relative ml-3">
-                      <Link
+                      {/* <Link
                         href={`/${lng}/user/auth`}
                         aria-label="Start User Authentication"
-                      >
-                        <Button
-                          className="bg-blue-600 text-white"
-                          color="primary"
-                          variant="shadow"
-                        >
-                          {lng === "en" ? "Start" : "დაწყება"}
-                        </Button>
-                      </Link>
+                      > */}
+                      <AuthModals
+                        params={{
+                          lang: lng === "en" ? "en" : "ka",
+                        }}
+                      />
+                      {/* </Link> */}
                     </div>
                   </>
                 )}
