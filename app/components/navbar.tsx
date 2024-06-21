@@ -394,25 +394,15 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                       logout={handleLogout}
                       lng={lng}
                     />
-                    {/* <Notification
-                      userid={user.userId}
-                      isScrolled={isScrolled}
-                    /> */}
                   </>
                 ) : (
-                  // Render this content if user is null
                   <>
                     <div className="relative ml-3">
-                      {/* <Link
-                        href={`/${lng}/user/auth`}
-                        aria-label="Start User Authentication"
-                      > */}
                       <AuthModals
                         params={{
                           lang: lng === "en" ? "en" : "ka",
                         }}
                       />
-                      {/* </Link> */}
                     </div>
                   </>
                 )}
