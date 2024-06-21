@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import ResetPassowrd from "@/public/Reset password.png";
 import Image from "next/image";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Checkbox, Input } from "@nextui-org/react";
 import { QuizHub } from "@/app/components/QuizHubLogo";
 import Authentication from "@/app/api/user/auth";
 import { useRouter } from "next/navigation";
@@ -109,10 +109,10 @@ export default function SSRResetPassword({
       </div>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0 md:w-2/3">
         <Link
-          href="#"
+          href={`${lng}`}
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
         >
-          <div className="w-8 h-8 mr-2">
+          <div className="mr-2">
             <QuizHub />
           </div>
           QuizHub
@@ -167,35 +167,31 @@ export default function SSRResetPassword({
               />
             </div>
             <div className="flex items-start">
-              <div className="flex items-center h-5">
-                <input
-                  id="newsletter"
-                  aria-describedby="newsletter"
-                  type="checkbox"
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                  required
+              <label
+                htmlFor="newsletter"
+                className="font-light text-gray-500 dark:text-gray-300"
+              >
+                <Checkbox
+                  classNames={{
+                    label: "text-small",
+                  }}
+                  color="warning"
                   onChange={(e) => {
                     setTerms(e.target.checked);
                   }}
-                />
-              </div>
-              <div className="ml-3 text-sm">
-                <label
-                  htmlFor="newsletter"
-                  className="font-light text-gray-500 dark:text-gray-300"
                 >
-                  {lng === "ka" ? "პირობებს" : "Terms and Conditions"}
-                  <p className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                    Terms and Conditions
-                  </p>
-                </label>
-              </div>
+                  <span className="text-yellow-500">
+                    {lng === "ka" ? "დაეთანხმე  " : "Accept  "}
+                  </span>
+                  Terms and Conditions
+                </Checkbox>
+              </label>
             </div>
             <Button
               type="submit"
               color="warning"
               variant="shadow"
-              className="w-full"
+              className="w-full text-white"
               isLoading={isLoading}
               onClick={handleResetPassword}
               isDisabled={isButtonDisabled}
