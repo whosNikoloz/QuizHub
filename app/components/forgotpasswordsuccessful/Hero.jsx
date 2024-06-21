@@ -1,4 +1,4 @@
-import Ilustration from "@/public/ProgiLust3.png";
+import Ilustration from "@/public/BatIlust1.png";
 import Image from "next/image";
 import { Reveal } from "../RevealFramer";
 import Link from "next/link";

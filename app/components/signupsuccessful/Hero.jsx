@@ -1,5 +1,5 @@
 import { Button } from "@nextui-org/react";
-import Ilustration from "@/public/ProgiLust3.png";
+import Ilustration from "@/public/BatIlust2.png";
 import Image from "next/image";
 import Link from "next/link";
 
