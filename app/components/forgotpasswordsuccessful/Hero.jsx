@@ -30,7 +30,7 @@ export const Hero = ({ userEmail, lang }) => {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link href="https://mail.google.com/">
-                <Button color="warning" variant="shadow">
+                <Button color="warning" className="text-white" variant="shadow">
                   {lang === "ka" ? "აღდგენა" : "Next"}
                 </Button>
               </Link>

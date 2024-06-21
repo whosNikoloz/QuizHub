@@ -26,8 +26,8 @@ const storage = getStorage(app);
 const auth_API = "https://localhost:45455/api/Auth/";
 const user_API = "https://localhost:45455/api/User/";
 
-const auth_conveyAPI = "https://lastorangeboat47.conveyor.cloud/api/Auth/";
-const user_conveyAPI = "https://lastorangeboat47.conveyor.cloud/api/User/";
+const auth_conveyAPI = "https://differentashtower34.conveyor.cloud/api/Auth/";
+const user_conveyAPI = "https://differentashtower34.conveyor.cloud/api/User/";
 
 const Authentication = () => {
   const cookies = new Cookies();

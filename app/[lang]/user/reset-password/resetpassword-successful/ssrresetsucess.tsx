@@ -17,7 +17,7 @@ export default function SSRResetSuccess(lng: { lang: string }) {
     cookie.remove("regEmail");
 
     setTimeout(() => {
-      router.push("/user/auth");
+      router.push("/");
     }, 3000);
   }, [setUserEmail, router]);
 
