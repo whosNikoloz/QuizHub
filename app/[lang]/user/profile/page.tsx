@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { UserCard } from "@/app/components/profile/userCard";
 import { UserEdit } from "@/app/components/profile/userEdit";
-import { UserProgress } from "@/app/components/profile/userProgress";
+import { UserQuizs } from "@/app/components/profile/userQuizzs";
 import { useUser } from "@/app/dbcontext/UserDbContext";
 
 import { useRouter } from "next/navigation";
@@ -110,7 +110,7 @@ export default function ProfilePage({
               userid={user.userId}
             />
           ) : (
-            <UserProgress />
+            <UserQuizs />
           )}
           <Toaster position="bottom-left" reverseOrder={false} />
         </div>
