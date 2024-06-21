@@ -146,13 +146,13 @@ export default function AuthModals({
   };
 
   const handleRegisterOAuth = async (provider: string) => {
-    // Trigger OAuth authentication
     const callbackUrl = "/user/auth/oauth";
 
     await signIn(provider, { callbackUrl });
   };
 
   const handleRegistration = async () => {
+    setIsLoading(true);
     if (registrationState.username === "") {
       setRegUserNameError(
         lang === "ka"
@@ -363,9 +363,29 @@ export default function AuthModals({
     if (mode === "login") {
       onOpenLogin();
       onCloseSignup();
+      setLoginState({ ...loginState, email: "", password: "" });
+      setLoginEmailError("");
+      setLoginPasswordError("");
+      setLoginError("");
+      setIsLoading(false);
+      setEmailLogHasBlurred(false);
     } else {
       onOpenSignup();
       onCloseLogin();
+      setRegistrationState({
+        ...registrationState,
+        email: "",
+        password: "",
+        confirmPassword: "",
+        username: "",
+      });
+      setConfirmPasswordError("");
+      setRegPasswordError("");
+      setRegUserNameError("");
+      setRegEmailError("");
+      setIsLoading(false);
+      setRegUserNameHasBlurred(false);
+      setRegEmailHasBlurred(false);
     }
   };
 
@@ -467,6 +487,11 @@ export default function AuthModals({
                 isInvalid={loginPasswordError !== ""}
                 errorMessage={loginPasswordError}
               />
+              {loginError && (
+                <div className="text-red-500 text-sm text-center font-mono">
+                  {loginError}
+                </div>
+              )}
             </ModalBody>
             <ModalFooter className="flex justify-between">
               <div className="flex justify-center items-center gap-2">
@@ -631,6 +656,11 @@ export default function AuthModals({
               isInvalid={confirmPasswordError !== ""}
               errorMessage={confirmPasswordError}
             />
+            {regError && (
+              <div className="text-red-500 text-sm text-center font-mono">
+                {regError}
+              </div>
+            )}
           </ModalBody>
           <ModalFooter className="flex justify-between">
             <div className="flex justify-center items-center gap-2">
@@ -663,7 +693,7 @@ export default function AuthModals({
                 color="warning"
                 className="text-white"
                 isLoading={isLoading}
-                onPress={onCloseLogin}
+                onPress={handleRegistration}
               >
                 {regData.button}
               </Button>
