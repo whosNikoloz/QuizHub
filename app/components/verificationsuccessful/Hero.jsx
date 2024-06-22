@@ -19,7 +19,7 @@ export const Hero = ({ userEmail, userName, lng }) => {
         <div className="w-full md:w-1/2 p-6">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-black sm:text-6xl dark:text-white">
-              Awesome, <span className="text-blue-600">{userName}!</span>
+              Awesome, <span className="text-yellow-600">{userName}!</span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-white">
               {lng === "en"
