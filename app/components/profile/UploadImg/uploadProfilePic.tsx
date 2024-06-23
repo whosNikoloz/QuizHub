@@ -126,7 +126,7 @@ function UploadProfilePic({
     <>
       <Card
         isBlurred
-        className="border-none  bg-background/60 dark:bg-black-100/50 max-w-[680px] justify-center items-center "
+        className="border-none  bg-background/60 dark:bg-default-100/50 shadow-2xl max-w-[680px] justify-center items-center "
         shadow="sm"
       >
         <CardBody>

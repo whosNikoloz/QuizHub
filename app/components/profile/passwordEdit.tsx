@@ -119,7 +119,7 @@ function PasswordEdit({ oauth, userid }: PasswordEditProps) {
     <>
       <Card
         isBlurred
-        className="border-none  bg-background/60 dark:bg-black-100/50 max-w-[680px] justify-center items-center sm:h-[410px]"
+        className="border-none  bg-background/60 dark:bg-default-100/50 shadow-2xl max-w-[680px] justify-center items-center sm:h-[410px]"
         shadow="sm"
       >
         <CardBody>

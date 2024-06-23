@@ -95,10 +95,10 @@ export const UserCard: FC<UserCardProps> = ({
                 </div>
               </div>
               <div className="flex flex-col mt-4">
-                <span className="text-gray-400  font-bold text-sm mb-2">
+                {/* <span className="text-gray-400  font-bold text-sm mb-2">
                   Last active 5 months ago
-                </span>
-                <span className="text-gray-400  font-bold text-sm   mb-2">
+                </span> */}
+                <span className="text-gray-400  font-bold text-sm">
                   Joined {formattedDate}
                 </span>
               </div>

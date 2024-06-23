@@ -60,6 +60,7 @@ export const Hero = ({
       return;
     }
     if (user) {
+      toast.success("Creating Room");
       return;
     }
   };

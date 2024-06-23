@@ -99,10 +99,10 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
 
   return (
     <>
-      <div className="col-span-4 sm:col-span-9 shadow-2xl">
+      <div className="col-span-4 sm:col-span-9 ">
         <Card
           isBlurred
-          className="border-none bg-background/60 dark:bg-black-100/50 max-h-[85vh]  justify-center items-center "
+          className="border-none  bg-background/60 dark:bg-default-100/50 shadow-2xl max-h-[85vh]  justify-center items-center "
           shadow="sm"
         >
           <CardBody className="flex gap-2">
@@ -176,13 +176,14 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
       <Modal
         isOpen={isEditOpen}
         placement="top-center"
+        className="dark:bg-slate-800"
         onOpenChange={onEditOpenChange}
       >
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Modal Title
+                {lang === "en" ? "Edit Quiz" : "ქვიზის რედაქტირება"}
               </ModalHeader>
               <ModalBody>
                 <p>
@@ -205,11 +206,15 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
                 </p>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                <Button onPress={onClose}>
+                  {lang === "en" ? "Delete" : "წაშლა"}
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
+                <Button
+                  color="warning"
+                  className="text-white"
+                  onPress={onClose}
+                >
+                  {lang === "en" ? "Save" : "შენახვა"}
                 </Button>
               </ModalFooter>
             </>
@@ -221,6 +226,7 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
         isOpen={isNewOpen}
         onOpenChange={onNewOpenChange}
         radius="md"
+        className="dark:bg-slate-800"
         placement="top-center"
         backdrop="blur"
         shouldBlockScroll={true}
@@ -242,6 +248,7 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
                       }
                       classNames={{
                         input: ["text-[16px] "],
+                        inputWrapper: ["dark:bg-slate-700"],
                       }}
                       value={englishName}
                       onChange={(e) => setEnglishName(e.target.value)}
@@ -263,6 +270,7 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
                       }
                       classNames={{
                         input: ["text-[16px] "],
+                        inputWrapper: ["dark:bg-slate-700"],
                       }}
                       value={georgianName}
                       onChange={(e) => setGeorgianName(e.target.value)}
@@ -284,6 +292,7 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
                       }
                       classNames={{
                         input: ["text-[16px] "],
+                        inputWrapper: ["dark:bg-slate-700"],
                       }}
                       value={image}
                       onChange={(e) => setImage(e.target.value)}
