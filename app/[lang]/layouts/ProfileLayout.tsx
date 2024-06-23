@@ -9,8 +9,14 @@ export default function ProfileLayout({
   lang: Locale;
 }) {
   return (
-    <div className="relative flex flex-col h-screen bg-gradient-to-t dark:from-black dark:via-yellow-900 dark:to-black from-white to-white via-yellow-300">
-      <Navbar lng={lang} NotMain={false} />
+    <div className="relative flex flex-col min-h-screen bg-gradient-to-b dark:from-black bg-white dark:bg-slate-800">
+      <Navbar
+        lng={lang}
+        NotMain={true}
+        onOpenSignupModal={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
       {children}
     </div>
   );

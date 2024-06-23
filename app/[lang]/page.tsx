@@ -4,6 +4,7 @@ import { Navbar } from "../components/navbar";
 import { Locale } from "@/i18n.config";
 import { useState } from "react";
 import AuthModals from "../components/user/auth";
+import { Toaster } from "react-hot-toast";
 
 export default function Home({
   params: { lang },
@@ -20,7 +21,7 @@ export default function Home({
     setIsSignupModalOpen(!isSignupModalOpen);
   }
   return (
-    <main className="flex min-h-screen flex-col items-center bg-white dark:bg-slate-800 justify-between">
+    <main className="flex min-h-screen flex-col items-center bg-gradient-to-t dark:from-black bg-white dark:bg-slate-800 justify-between">
       <Navbar
         lng={lang}
         NotMain={true}
@@ -32,6 +33,7 @@ export default function Home({
         onClose={handleCloseSignupModal}
         lang={lang === "en" ? "en" : "ka"}
       />
+      <Toaster position="bottom-left" reverseOrder={false} />
     </main>
   );
 }

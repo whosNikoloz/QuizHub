@@ -33,10 +33,10 @@ export const UserCard: FC<UserCardProps> = ({
 
   return (
     <>
-      <div className="col-span-4 sm:col-span-3">
+      <div className="col-span-4 sm:col-span-3 ">
         <Card
           isBlurred
-          className="border-none  bg-background/60 dark:bg-default-100/50 max-w-[680px] justify-center items-center "
+          className="border-none shadow-2xl  bg-background/60 dark:bg-default-100/50 max-w-[680px] justify-center items-center "
           shadow="sm"
         >
           <CardBody>
@@ -55,7 +55,7 @@ export const UserCard: FC<UserCardProps> = ({
                   {firstname} {lastname}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-1 justify-center">
-                  <div className="flex items-center p-1 border border-yellow-600  dark:yellow-blue-400 rounded-xl gap-1">
+                  <div className="flex items-center p-1 border border-yellow-300   rounded-xl gap-1">
                     <input
                       type="radio"
                       id="Main"
@@ -67,8 +67,8 @@ export const UserCard: FC<UserCardProps> = ({
                       htmlFor="Main"
                       className={`px-4 py-2 text-xs font-medium capitalize ${
                         selectedOption === "Main"
-                          ? "text-white bg-yellow-600 hover:bg-yellow-600"
-                          : "text-yellow-600 dark:text-yellow-400 dark:hover:text-white hover:bg-yellow-600 hover:text-white"
+                          ? "text-black bg-yellow-400"
+                          : "text-yellow-400 dark:text-yellow-400 dark:hover:text-black hover:bg-yellow-400 hover:text-white"
                       } rounded-xl md:py-3 md:px-12 cursor-pointer`}
                     >
                       Main
@@ -85,8 +85,8 @@ export const UserCard: FC<UserCardProps> = ({
                       htmlFor="Edit"
                       className={`px-6 py-2 text-xs font-medium capitalize ${
                         selectedOption === "Edit"
-                          ? "text-white bg-yellow-600 hover:bg-yellow-600"
-                          : "text-yellow-600 dark:text-yellow-400 dark:hover:text-white hover:bg-yellow-600 hover:text-white"
+                          ? "text-black bg-yellow-400"
+                          : "text-yellow-400 dark:text-yellow-400 dark:hover:text-black hover:bg-yellow-400 hover:text-white"
                       } rounded-xl md:py-3 md:px-12 cursor-pointer`}
                     >
                       Profile

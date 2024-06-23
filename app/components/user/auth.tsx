@@ -437,6 +437,7 @@ export default function AuthModals({
 
       <Modal
         isOpen={isOpenLogin}
+        className="dark:bg-slate-800"
         motionProps={{
           variants: {
             enter: {
@@ -462,7 +463,7 @@ export default function AuthModals({
       >
         <ModalContent>
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 dark:text-white text-slate-800">
               {loginData.title}
             </ModalHeader>
             <ModalBody>
@@ -472,12 +473,15 @@ export default function AuthModals({
                 label={loginData.email}
                 classNames={{
                   input: ["text-[16px] "],
+                  inputWrapper: ["dark:bg-slate-700"],
                 }}
                 onChange={(e) =>
                   setLoginState({ ...loginState, email: e.target.value })
                 }
                 onBlur={handleLoginEmailExists}
-                startContent={<i className="fas fa-envelope"></i>}
+                startContent={
+                  <i className="fas fa-envelope dark:text-white text-slate-800"></i>
+                }
                 endContent={
                   logEmailHasBlurred ? (
                     <InputLoadingBtn loading={Logloader} success={true} />
@@ -493,12 +497,15 @@ export default function AuthModals({
                 label={loginData.password}
                 classNames={{
                   input: ["text-[16px] "],
+                  inputWrapper: ["dark:bg-slate-700"],
                 }}
                 value={loginState.password}
                 onChange={(e) =>
                   setLoginState({ ...loginState, password: e.target.value })
                 }
-                startContent={<i className="fas fa-lock"></i>}
+                startContent={
+                  <i className="fas fa-lock dark:text-white text-slate-800"></i>
+                }
                 isClearable
                 onClear={handleLoginPasswordClear}
                 isInvalid={loginPasswordError !== ""}
@@ -564,6 +571,7 @@ export default function AuthModals({
         isOpen={isOpenSignup}
         scrollBehavior="inside"
         placement="top-center"
+        className="dark:bg-slate-800"
         onClose={handleCloseModal as () => void}
         motionProps={{
           variants: {
@@ -587,7 +595,7 @@ export default function AuthModals({
         }}
       >
         <ModalContent>
-          <ModalHeader className="flex flex-col gap-1">
+          <ModalHeader className="flex flex-col gap-1 dark:text-white text-slate-800">
             {regData.title}
           </ModalHeader>
           <ModalBody>
@@ -596,6 +604,7 @@ export default function AuthModals({
               label={regData.username}
               classNames={{
                 input: ["text-[16px] "],
+                inputWrapper: ["dark:bg-slate-700"],
               }}
               value={registrationState.username}
               onChange={(e) =>
@@ -605,7 +614,9 @@ export default function AuthModals({
                 })
               }
               onBlur={handleRegisterUsernameExists}
-              startContent={<i className="fas fa-user"></i>}
+              startContent={
+                <i className="fas fa-user dark:text-white text-slate-800"></i>
+              }
               endContent={
                 regUserNameHasBlurred ? (
                   <InputLoadingBtn loading={Regusernameloader} success={true} />
@@ -621,6 +632,7 @@ export default function AuthModals({
               label={regData.email}
               classNames={{
                 input: ["text-[16px] "],
+                inputWrapper: ["dark:bg-slate-700"],
               }}
               value={registrationState.email}
               onChange={(e) =>
@@ -630,7 +642,9 @@ export default function AuthModals({
                 })
               }
               onBlur={handleRegisterEmailExists}
-              startContent={<i className="fas fa-envelope"></i>}
+              startContent={
+                <i className="fas fa-envelope dark:text-white text-slate-800"></i>
+              }
               endContent={
                 regEmailHasBlurred ? (
                   <InputLoadingBtn loading={Regemailloader} success={true} />
@@ -647,6 +661,7 @@ export default function AuthModals({
               label={regData.password}
               classNames={{
                 input: ["text-[16px] "],
+                inputWrapper: ["dark:bg-slate-700"],
               }}
               value={registrationState.password}
               onChange={(e) =>
@@ -655,7 +670,9 @@ export default function AuthModals({
                   password: e.target.value,
                 })
               }
-              startContent={<i className="fas fa-lock"></i>}
+              startContent={
+                <i className="fas fa-lock dark:text-white text-slate-800"></i>
+              }
               isClearable
               onClear={handleRegPasswordClear}
               isInvalid={regRegPasswordError !== ""}
@@ -666,6 +683,7 @@ export default function AuthModals({
               type="password"
               classNames={{
                 input: ["text-[16px] "],
+                inputWrapper: ["dark:bg-slate-700"],
               }}
               label={regData.confirmPassword}
               value={registrationState.confirmPassword}
@@ -676,7 +694,9 @@ export default function AuthModals({
                 })
               }
               onBlur={handleBlurConfirmPassword}
-              startContent={<i className="fas fa-lock"></i>}
+              startContent={
+                <i className="fas fa-lock dark:text-white text-slate-800"></i>
+              }
               isClearable
               onClear={handleRegConfirmPasswordClear}
               isInvalid={confirmPasswordError !== ""}

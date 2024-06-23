@@ -99,23 +99,23 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
 
   return (
     <>
-      <div className="col-span-4 sm:col-span-9 ">
+      <div className="col-span-4 sm:col-span-9 shadow-2xl">
         <Card
           isBlurred
           className="border-none bg-background/60 dark:bg-black-100/50 max-h-[85vh]  justify-center items-center "
           shadow="sm"
         >
           <CardBody className="flex gap-2">
-            <div className="flex items-center justify-between rounded-t-3xl p-3 w-full">
+            <div className="flex items-center justify-between  p-3 w-full">
               <div className="text-lg font-bold text-navy-700 dark:text-white">
                 {lang === "en" ? "Quizzes" : "ქვიზები"}
               </div>
-              <button
+              <Button
                 onClick={onNewOpen}
-                className="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20"
+                className="linear  bg-lightPrimary px-4 rounded-2xl py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20"
               >
                 {lang === "en" ? "Create +" : "დამატება +"}
-              </button>
+              </Button>
             </div>
 
             {quizzes.map((quiz, index) => (
@@ -126,7 +126,7 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
                   className="w-full bg-transparent shadow-lg hover:bg-white/10"
                 >
                   <CardBody>
-                    <div className="flex h-full w-full items-start justify-between rounded-md  px-3  transition-all duration-150">
+                    <div className="flex h-full w-full items-start justify-between   px-3  transition-all duration-150">
                       <div className="flex items-center gap-3">
                         <div className="flex h-16 w-16 items-center justify-center">
                           <img
@@ -141,7 +141,7 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
                           </h5>
                         </div>
                       </div>
-                      <div className="mt-1 flex items-center justify-center text-navy-700 dark:text-white">
+                      <div className="mt-6 flex items-center justify-center text-navy-700 dark:text-white">
                         <div>
                           <svg
                             stroke="currentColor"

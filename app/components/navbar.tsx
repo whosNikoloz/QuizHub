@@ -101,7 +101,7 @@ export const Navbar = ({
         <nav
           className={`z-50 fixed w-full top-0 transition-colors ${
             isScrolled
-              ? "dark:backdrop-blur-lg dark:bg-black/10 bg-white shadow-md"
+              ? "dark:backdrop-blur-lg dark:bg-slate-800 bg-white shadow-md"
               : "bg-transparent"
           }`}
         >
