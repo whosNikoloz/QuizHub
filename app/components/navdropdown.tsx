@@ -202,12 +202,12 @@ function NDropdown({
       <div
         ref={dropdownRef}
         onClick={handleDropdownClick}
-        className={`transition-all  ease-in-out overflow-hidden sm:hidden w-full  ${
+        className={`transition-all shadow-2xl ease-in-out overflow-hidden sm:hidden w-full  ${
           Open ? "max-h-[700px]" : "max-h-0"
         }`}
       >
         <div
-          className={`px-3 py-4 overflow-y-auto  shadow-xl bg-white p-2 dark:bg-black backdrop-blur-sm rounded-2xl border border-black/[0.2] dark:border-white/[0.2] `}
+          className={`px-3 py-4 overflow-y-auto  shadow-xl  p-2 bg-white dark:bg-slate-800 backdrop-blur-sm rounded-2xl border border-black/[0.2] dark:border-white/[0.2] `}
         >
           <ul className="space-y-3">
             {LngmenuItems.map((item, index) => (
@@ -306,18 +306,19 @@ function NDropdown({
                 Theme
               </p>
               <Select
-                className="w-[150px]"
+                className="w-[150px] text-black dark:text-white"
                 size="sm"
                 variant="underlined"
+                color="warning"
                 onChange={handleThemeChange}
                 aria-label="Select theme"
-                color="warning"
                 labelPlacement="outside"
                 defaultSelectedKeys={[theme || "system"]}
                 startContent={startCon}
               >
                 <SelectItem
                   key="dark"
+                  className="text-black dark:text-white"
                   value={"dark"}
                   startContent={
                     <MoonFilledIcon size={20} height={20} width={20} />
@@ -328,6 +329,7 @@ function NDropdown({
                 <SelectItem
                   key="light"
                   value={"light"}
+                  className="text-black dark:text-white"
                   startContent={
                     <SunFilledIcon size={20} height={20} width={20} />
                   }
@@ -336,6 +338,7 @@ function NDropdown({
                 </SelectItem>
                 <SelectItem
                   key="system"
+                  className="text-black dark:text-white"
                   value={"system"}
                   startContent={<SystemIcon size={20} height={20} width={20} />}
                 >
@@ -348,7 +351,7 @@ function NDropdown({
                 Language
               </p>
               <Select
-                className="w-[150px]"
+                className="w-[150px] text-black dark:text-white"
                 size="sm"
                 variant="underlined"
                 onChange={(event: { target: { value: string } }) =>
@@ -362,6 +365,7 @@ function NDropdown({
               >
                 <SelectItem
                   key="ka"
+                  className="text-black dark:text-white"
                   value={"georgia"}
                   startContent={
                     <Avatar
@@ -376,6 +380,7 @@ function NDropdown({
                 <SelectItem
                   key="en"
                   value={"english"}
+                  className="text-black dark:text-white"
                   onClick={() => handleLanguageChange("en")}
                   startContent={
                     <Avatar

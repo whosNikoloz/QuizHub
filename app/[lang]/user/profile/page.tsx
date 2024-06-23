@@ -110,7 +110,7 @@ export default function ProfilePage({
               userid={user.userId}
             />
           ) : (
-            <UserQuizs />
+            <UserQuizs lang={lang} />
           )}
           <Toaster position="bottom-left" reverseOrder={false} />
         </div>

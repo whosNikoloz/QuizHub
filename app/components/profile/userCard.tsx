@@ -61,7 +61,6 @@ export const UserCard: FC<UserCardProps> = ({
                       id="Main"
                       name="category"
                       className="hidden "
-                      checked={selectedOption === "Main"}
                       onChange={() => handleCategoryChange("Main")}
                     />
                     <label
@@ -80,7 +79,6 @@ export const UserCard: FC<UserCardProps> = ({
                       id="Edit"
                       name="category"
                       className="hidden"
-                      checked={selectedOption === "Edit"}
                       onChange={() => handleCategoryChange("Edit")}
                     />
                     <label

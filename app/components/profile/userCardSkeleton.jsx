@@ -28,7 +28,7 @@ function UserCardSkeleton() {
                   id="Main"
                   name="category"
                   className="hidden "
-                  checked={selectedOption === "Main"}
+                  onChange={() => setSelectedOption("Main")}
                 />
                 <label
                   htmlFor="Main"
@@ -46,7 +46,7 @@ function UserCardSkeleton() {
                   id="Edit"
                   name="category"
                   className="hidden"
-                  checked={selectedOption === "Edit"}
+                  onChange={() => setSelectedOption("Edit")}
                 />
                 <label
                   htmlFor="Edit"

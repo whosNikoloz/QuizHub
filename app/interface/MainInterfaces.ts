@@ -1,25 +1,26 @@
 export interface QuizModel {
-  QuizId: number;
-  Name_en: string;
-  Name_ka: string;
-  UserId: number;
+  quizid: number;
+  name_en: string;
+  name_ka: string;
+  imageUrl: string;
+  userid: number;
   questions: QuestionModel[];
 }
 
 export interface QuestionModel {
-  QuestionId: number;
-  Question_en: string;
-  Question_ka: string;
-  ImageUrl: string;
-  VideoUrl: string;
-  QuizId: number;
-  Answers: string[];
+  questionid: number;
+  question_en: string;
+  question_ka: string;
+  imageurl: string;
+  videourl: string;
+  quizid: number;
+  answers: string[];
 }
 
 export interface AnswersModel {
-  AnswerId: number;
-  Answer_en: string;
-  Answer_ka: string;
-  IsCorrect: boolean;
-  QuestionId: number;
+  answerid: number;
+  answer_en: string;
+  answer_ka: string;
+  iscorrect: boolean;
+  questionid: number;
 }

@@ -64,9 +64,13 @@ const AuthData = {
 };
 
 export default function AuthModals({
-  params: { lang },
+  isOpen,
+  onClose,
+  lang,
 }: {
-  params: { lang: Locale };
+  isOpen: boolean;
+  onClose: () => void;
+  lang: Locale;
 }) {
   const { regData, loginData } = AuthData[lang];
   const router = useRouter();
@@ -401,6 +405,19 @@ export default function AuthModals({
     onClose: onCloseLogin,
   } = useDisclosure();
 
+  const handleCloseModal = () => {
+    onClose();
+    onCloseSignup();
+    onCloseLogin();
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      onOpenLogin(); // Ensures the login modal is opened when isOpen is true
+    } else {
+      onCloseLogin(); // Ensures the login modal is closed when isOpen is false
+    }
+  }, [isOpen, onOpenLogin, onCloseLogin]);
   return (
     <>
       <header>
@@ -409,14 +426,14 @@ export default function AuthModals({
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         />
       </header>
-      <Button
+      {/* <Button
         className=" text-white"
         color="warning"
         variant="shadow"
         onClick={() => onOpenLogin()}
       >
         {lang === "en" ? "Start" : "დაწყება"}
-      </Button>
+      </Button> */}
 
       <Modal
         isOpen={isOpenLogin}
@@ -440,7 +457,7 @@ export default function AuthModals({
             },
           },
         }}
-        onClose={onCloseLogin}
+        onClose={handleCloseModal as () => void}
         placement="top-center"
       >
         <ModalContent>
@@ -547,7 +564,7 @@ export default function AuthModals({
         isOpen={isOpenSignup}
         scrollBehavior="inside"
         placement="top-center"
-        onClose={onCloseSignup}
+        onClose={handleCloseModal as () => void}
         motionProps={{
           variants: {
             enter: {

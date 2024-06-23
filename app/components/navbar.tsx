@@ -10,7 +10,15 @@ import UDropdown from "./Userdropdown";
 import AuthModals from "./user/auth";
 import { QuizHub } from "./QuizHubLogo";
 
-export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
+export const Navbar = ({
+  lng,
+  NotMain,
+  onOpenSignupModal,
+}: {
+  lng: string;
+  NotMain: boolean;
+  onOpenSignupModal: () => void;
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { user, logout } = useUser();
@@ -115,7 +123,7 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
-                    stroke={isScrolled ? "currentColor" : "#ffff"}
+                    stroke="currentColor"
                     aria-hidden="true"
                   >
                     <path
@@ -226,11 +234,14 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                   // Render this content if user is null
                   <>
                     <div className="relative ml-3">
-                      <AuthModals
-                        params={{
-                          lang: lng === "en" ? "en" : "ka",
-                        }}
-                      />
+                      <Button
+                        className=" text-white"
+                        color="warning"
+                        variant="shadow"
+                        onClick={() => onOpenSignupModal()}
+                      >
+                        {lng === "en" ? "Start" : "დაწყება"}
+                      </Button>
                     </div>
                   </>
                 )}
@@ -398,11 +409,14 @@ export const Navbar = ({ lng, NotMain }: { lng: string; NotMain: boolean }) => {
                 ) : (
                   <>
                     <div className="relative ml-3">
-                      <AuthModals
-                        params={{
-                          lang: lng === "en" ? "en" : "ka",
-                        }}
-                      />
+                      <Button
+                        className=" text-white"
+                        color="warning"
+                        variant="shadow"
+                        onClick={() => onOpenSignupModal()}
+                      >
+                        {lng === "en" ? "Start" : "დაწყება"}
+                      </Button>
                     </div>
                   </>
                 )}
