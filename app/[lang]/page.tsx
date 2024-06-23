@@ -23,7 +23,7 @@ export default function Home({
     <main className="flex min-h-screen flex-col items-center bg-white dark:bg-slate-800 justify-between">
       <Navbar
         lng={lang}
-        NotMain={false}
+        NotMain={true}
         onOpenSignupModal={handleOpenSignupModal}
       />
       <Hero lang={lang} onOpenSignupModal={handleOpenSignupModal} />
