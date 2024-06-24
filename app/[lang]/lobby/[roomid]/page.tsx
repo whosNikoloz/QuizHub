@@ -8,7 +8,7 @@ import {
 } from "@microsoft/signalr";
 import { Card, Avatar } from "@nextui-org/react";
 import Image from "next/image";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { QuizHub } from "@/app/components/QuizHubLogo";
 
 export default function LobbyPage({
@@ -67,7 +67,6 @@ export default function LobbyPage({
               })
             )
           );
-          console.log(users);
         });
 
         newConnection.on("UserJoined", ({ connectionId, userName }) => {
@@ -93,14 +92,15 @@ export default function LobbyPage({
               },
             ];
           });
-          console.log(users);
+          toast.success(`${userName} joined the room`);
         });
 
-        newConnection.on("UserLeft", (connectionId) => {
-          console.log(`User ${connectionId} left`);
+        newConnection.on("UserLeft", ({ connectionId, userName }) => {
+          console.log(`User ${userName} with ID ${connectionId} left`);
           setUsers((prevUsers) =>
             prevUsers.filter((user) => user.id !== connectionId)
           );
+          toast.success(`${userName} left the room`);
         });
       } catch (error) {
         console.error("SignalR Connection Error: ", error);
