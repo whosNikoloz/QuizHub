@@ -80,7 +80,7 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
             name_en: response.data.name_en,
             name_ka: response.data.name_ka,
             imageUrl: response.data.imageUrl,
-            quizid: response.data.quizid,
+            quizId: response.data.quizId,
             userid: response.data.userid,
             questions: response.data.questions,
           },

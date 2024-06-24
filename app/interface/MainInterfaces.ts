@@ -1,5 +1,5 @@
 export interface QuizModel {
-  quizid: number;
+  quizId: number;
   name_en: string;
   name_ka: string;
   imageUrl: string;

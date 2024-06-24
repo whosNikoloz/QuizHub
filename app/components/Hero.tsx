@@ -1,21 +1,25 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Input,
-  Link,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Select,
+  SelectItem,
   useDisclosure,
 } from "@nextui-org/react";
 import { useUser } from "@/app/dbcontext/UserDbContext";
 import toast from "react-hot-toast";
 import { InputLoadingBtn } from "./user/inputloadingbtn";
-import { useState } from "react";
+import QuizApi from "@/app/api/MainApi/Quiz";
+import RoomApi from "@/app/api/MainApi/Room";
+import { QuizModel } from "../interface/MainInterfaces";
 
 const HeroData = {
   en: {
@@ -50,35 +54,80 @@ export const Hero = ({
 
   const { user } = useUser();
 
-  const handleJoinRoom = () => {
-    onOpen();
+  const [quizzes, setQuizzes] = useState<QuizModel[]>([]);
+  const [roomId, setRoomId] = useState("");
+  const [userName, setUserName] = useState("");
+  const [roomidHasBlurred, setRoomIdHasBlurred] = useState(false);
+  const [Logloader, setLogLoader] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+
+  const RoomsApi = RoomApi();
+  const QuizzApi = QuizApi();
+
+  const fetchQuizzes = async () => {
+    try {
+      const response = await QuizzApi.handleGetQuizzes();
+      setQuizzes(response);
+    } catch (error) {
+      console.error("Failed to fetch quizzes:", error);
+    }
   };
-  const handleCreateRoom = () => {
+
+  const handleJoinRoom = () => {
+    joinRoomonOpen();
+  };
+
+  const handleCreateRoom = async () => {
     if (!user) {
       onOpenSignupModal();
       toast.error("Please sign in to create a room");
       return;
     }
     if (user) {
-      toast.success("Creating Room");
+      await fetchQuizzes();
+      createRoomonOpen();
       return;
     }
   };
 
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-
-  const [roomId, setRoomId] = useState("");
-  const [userName, setUserName] = useState("");
-
-  const [roomidHasBlurred, setRoomIdHasBlurred] = useState(false);
-  const [Logloader, setLogLoader] = useState(false);
-
   const handleRoomExists = async () => {
     setRoomIdHasBlurred(true);
     setLogLoader(true);
+    // You might want to add the logic for checking if the room exists
     setLogLoader(false);
   };
 
+  const handleCreateRoomSubmit = async () => {
+    if (selectedOption === null) {
+      toast.error("Please select a quiz");
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const response = await RoomsApi.handleCreateRoom(selectedOption);
+      createRoomonCLose();
+      toast.success("Room created successfully :  " + response.data);
+    } catch (error) {
+      toast.error("Failed to create room");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const {
+    isOpen: joinRoomisOpen,
+    onOpen: joinRoomonOpen,
+    onOpenChange: joinRoomonOpenChange,
+    onClose: joinRoomonCLose,
+  } = useDisclosure();
+
+  const {
+    isOpen: createRoomisOpen,
+    onOpen: createRoomonOpen,
+    onOpenChange: createRoomonOpenChange,
+    onClose: createRoomonCLose,
+  } = useDisclosure();
   return (
     <>
       <section className="pt-24  ">
@@ -111,9 +160,9 @@ export const Hero = ({
                   fill="currentColor"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </Button>
@@ -134,9 +183,9 @@ export const Hero = ({
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
                   ></path>
                 </svg>
@@ -153,7 +202,10 @@ export const Hero = ({
                     <div className="w-3 h-3 border-2 border-white rounded-full"></div>
                   </div>
                 </div>
-                <img src="https://cdn.devdojo.com/images/march2021/green-dashboard.jpg" />
+                <img
+                  src="https://cdn.devdojo.com/images/march2021/green-dashboard.jpg"
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -161,7 +213,7 @@ export const Hero = ({
       </section>
 
       <Modal
-        isOpen={isOpen}
+        isOpen={joinRoomisOpen}
         className="dark:bg-slate-800"
         motionProps={{
           variants: {
@@ -183,7 +235,7 @@ export const Hero = ({
             },
           },
         }}
-        onClose={onClose}
+        onClose={joinRoomonCLose}
         placement="top-center"
       >
         <ModalContent>
@@ -244,6 +296,68 @@ export const Hero = ({
                 // onPress={handleLogin}
               >
                 {lang == "en" ? "Join" : "შესვლა"}
+              </Button>
+            </ModalFooter>
+          </>
+        </ModalContent>
+      </Modal>
+
+      <Modal
+        isOpen={createRoomisOpen}
+        className="dark:bg-slate-800"
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: 20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          },
+        }}
+        onClose={createRoomonCLose}
+        placement="top-center"
+      >
+        <ModalContent>
+          <>
+            <ModalHeader className="flex flex-col gap-1 dark:text-white text-slate-800">
+              {lang == "en" ? "Create Room" : "შექმენი ქვიზი"}
+            </ModalHeader>
+            <ModalBody>
+              <Select
+                onChange={(event) =>
+                  setSelectedOption(Number(event.target.value))
+                }
+                label="Select a Quiz"
+                className="w-full"
+              >
+                {quizzes
+                  .filter((quiz) => quiz.quizId !== null)
+                  .map((quiz) => (
+                    <SelectItem key={quiz.quizId} value={quiz.quizId}>
+                      {lang === "ka" ? quiz.name_ka : quiz.name_en}
+                    </SelectItem>
+                  ))}
+              </Select>
+            </ModalBody>
+            <ModalFooter className="flex justify-end">
+              <Button
+                color="warning"
+                className="text-white"
+                isLoading={isLoading}
+                onPress={handleCreateRoomSubmit}
+              >
+                {lang == "en" ? "Create" : "შექმნა"}
               </Button>
             </ModalFooter>
           </>
