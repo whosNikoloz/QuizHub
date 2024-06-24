@@ -59,20 +59,21 @@ export default function LobbyPage({
               ({
                 connectionId,
                 userName,
+                role,
               }: {
                 connectionId: string;
                 userName: string;
+                role: string;
               }) => ({
                 id: connectionId,
-                avatar: "",
-                name: "",
                 userName: userName,
+                role: role,
               })
             )
           );
         });
 
-        newConnection.on("UserJoined", ({ connectionId, userName }) => {
+        newConnection.on("UserJoined", ({ connectionId, userName, role }) => {
           console.log(`User ${userName} (${connectionId}) joined`);
           setUsers((prevUsers) => {
             // Check if the user already exists to avoid duplicates
@@ -90,7 +91,7 @@ export default function LobbyPage({
               {
                 id: connectionId,
                 userName: userName, // Use the UserName provided by the backend
-                role: "Student",
+                role: role,
               },
             ];
           });
@@ -157,6 +158,9 @@ export default function LobbyPage({
                           <div className="flex flex-col">
                             <h5 className="text-base font-bold text-navy-700 dark:text-white">
                               {user.userName}
+                              {user.role === "teacher"
+                                ? "  Teacher"
+                                : "  Student"}
                             </h5>
                           </div>
                         </div>
