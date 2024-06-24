@@ -20,6 +20,7 @@ import { InputLoadingBtn } from "./user/inputloadingbtn";
 import QuizApi from "@/app/api/MainApi/Quiz";
 import RoomApi from "@/app/api/MainApi/Room";
 import { QuizModel } from "../interface/MainInterfaces";
+import { useRouter } from "next/navigation";
 
 const HeroData = {
   en: {
@@ -91,11 +92,21 @@ export const Hero = ({
     }
   };
 
+  const router = useRouter();
+
   const handleRoomExists = async () => {
     setRoomIdHasBlurred(true);
     setLogLoader(true);
-    // You might want to add the logic for checking if the room exists
-    setLogLoader(false);
+
+    const response = await RoomsApi.handleCheckRoomexists(roomId);
+    if (response.success) {
+      setLogLoader(false);
+      return;
+    } else {
+      setRoomIdHasBlurred(false);
+      setLogLoader(false);
+      toast.error("Room does not exist");
+    }
   };
 
   const handleCreateRoomSubmit = async () => {
@@ -112,6 +123,16 @@ export const Hero = ({
       toast.error("Failed to create room");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleJoinRoomSubmit = async () => {
+    if (roomId === "" || userName === "") {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    if (roomId !== "" && userName !== "") {
+      router.push(`${lang}/lobby/${roomId}`);
     }
   };
 
@@ -293,7 +314,7 @@ export const Hero = ({
                 color="warning"
                 className="text-white"
                 // isLoading={isLoading}
-                // onPress={handleLogin}
+                onPress={handleJoinRoomSubmit}
               >
                 {lang == "en" ? "Join" : "შესვლა"}
               </Button>
@@ -335,6 +356,10 @@ export const Hero = ({
             </ModalHeader>
             <ModalBody>
               <Select
+                variant="bordered"
+                classNames={{
+                  mainWrapper: ["dark:bg-slate-700 rounded-2xl"],
+                }}
                 onChange={(event) =>
                   setSelectedOption(Number(event.target.value))
                 }
@@ -344,7 +369,11 @@ export const Hero = ({
                 {quizzes
                   .filter((quiz) => quiz.quizId !== null)
                   .map((quiz) => (
-                    <SelectItem key={quiz.quizId} value={quiz.quizId}>
+                    <SelectItem
+                      key={quiz.quizId}
+                      className="dark:text-white text-black"
+                      value={quiz.quizId}
+                    >
                       {lang === "ka" ? quiz.name_ka : quiz.name_en}
                     </SelectItem>
                   ))}

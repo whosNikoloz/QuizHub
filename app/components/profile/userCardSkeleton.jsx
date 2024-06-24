@@ -22,7 +22,7 @@ function UserCardSkeleton() {
             <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4 animate-pulse"></div>
             <div className="w-48 h-2 bg-gray-200 rounded-full dark:bg-gray-700 animate-pulse"></div>
             <div className="mt-6 flex flex-wrap gap-1 justify-center">
-              <div className="flex items-center p-1 border border-yellow-600  dark:border-blue-400 rounded-xl gap-1">
+              <div className="flex items-center p-1 border border-yellow-600  dark:border-yellow-400 rounded-xl gap-1">
                 <input
                   type="radio"
                   id="Main"
@@ -56,7 +56,7 @@ function UserCardSkeleton() {
                       : "text-yellow-600 dark:text-yellow-400 dark:hover:text-white hover:bg-yellow-600 hover:text-white"
                   } rounded-xl md:py-3 md:px-12 cursor-pointer`}
                 >
-                  Edit Profile
+                  Profile
                 </label>
               </div>
             </div>
