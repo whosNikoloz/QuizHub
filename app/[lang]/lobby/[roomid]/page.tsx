@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -6,18 +7,20 @@ import {
   HubConnectionBuilder,
   LogLevel,
 } from "@microsoft/signalr";
-import { Card, Avatar } from "@nextui-org/react";
+import { Card, Avatar, User, CardBody } from "@nextui-org/react";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
 import { QuizHub } from "@/app/components/QuizHubLogo";
+import { Reveal } from "@/app/components/RevealFramer";
+import { Locale } from "@/i18n.config";
 
 export default function LobbyPage({
-  params: { roomid },
+  params: { lang, roomid },
 }: {
-  params: { roomid: string };
+  params: { lang: Locale; roomid: string };
 }) {
   const [users, setUsers] = useState<
-    { id: string; avatar: string; name: string; userName: string }[]
+    { id: string; userName: string; role: string }[]
   >([]);
 
   const [connection, setConnection] = useState<HubConnection | null>(null);
@@ -86,9 +89,8 @@ export default function LobbyPage({
               ...prevUsers,
               {
                 id: connectionId,
-                avatar: "", // Placeholder for avatar URL
-                name: "", // Placeholder for the user's real name, if available
                 userName: userName, // Use the UserName provided by the backend
+                role: "Student",
               },
             ];
           });
@@ -126,31 +128,42 @@ export default function LobbyPage({
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-full mt-10 bg-background">
+      <div className="flex bg-transparent  flex-col items-center  justify-center h-full mt-5 bg-background">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-6">
-            <div className="flex items-center gap-2">
-              <QuizHub />
-              <h1 className="text-2xl font-bold">QuizHub</h1>
-              <h1 className="text-2xl font-bold">RoomId : {roomid}</h1>
+            <div className="flex items-center gap-2 w-full justify-between">
+              <div className="flex gap-2">
+                <QuizHub />
+                <h1 className="text-2xl font-bold">QuizHub</h1>
+              </div>
+              <h1 className="text-lg font-bold">RoomCode : {roomid}</h1>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
               {users.map((user) => (
-                <Card
-                  key={user.id}
-                  className="flex flex-col items-center gap-2 p-4"
-                >
-                  <Avatar>
-                    <Image
-                      src={user.avatar}
-                      width={100}
-                      height={100}
-                      alt={user.name}
-                    />
-                  </Avatar>
-                  <div className="text-sm font-medium">{user.userName}</div>
-                  <div className="text-xs text-muted-foreground">Online</div>
-                </Card>
+                <Reveal direction="up" key={user.id}>
+                  <Card className="w-full bg-white/5 shadow-lg hover:bg-white/10">
+                    <CardBody>
+                      <div className="flex h-full w-full items-start justify-between   px-3  transition-all duration-150">
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-16 w-16 items-center justify-center">
+                            <img
+                              className="h-full w-full rounded-xl object-cover"
+                              src={
+                                "https://i.guim.co.uk/img/media/c8c00617b792d1d53f2d2b318820d5758dc61551/231_0_2968_1782/master/2968.jpg?width=1200&quality=85&auto=format&fit=max&s=99459057199a54c97181e29b0947b5fb"
+                              }
+                              alt=""
+                            />
+                          </div>
+                          <div className="flex flex-col">
+                            <h5 className="text-base font-bold text-navy-700 dark:text-white">
+                              {user.userName}
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                    </CardBody>
+                  </Card>
+                </Reveal>
               ))}
             </div>
           </div>
