@@ -132,6 +132,7 @@ export const Hero = ({
       return;
     }
     if (roomId !== "" && userName !== "") {
+      localStorage.setItem("userName", userName);
       router.push(`${lang}/lobby/${roomId}`);
     }
   };

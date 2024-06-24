@@ -9,6 +9,7 @@ import {
 import { Card, Avatar } from "@nextui-org/react";
 import Image from "next/image";
 import { Toaster } from "react-hot-toast";
+import { QuizHub } from "@/app/components/QuizHubLogo";
 
 export default function LobbyPage({
   params: { roomid },
@@ -46,37 +47,53 @@ export default function LobbyPage({
         await newConnection.start();
         console.log("SignalR Connected");
 
-        await newConnection.send("JoinRoom", roomid);
+        await newConnection.send("JoinRoom", roomid, userName);
 
         newConnection.on("UsersInRoom", (usersInRoom) => {
           console.log("Users in room:", usersInRoom);
           setUsers(
-            usersInRoom.map((connectionId: any) => ({
-              id: connectionId,
-              avatar: "",
-              name: "",
-              userName: `User${connectionId}`,
-            }))
+            usersInRoom.map(
+              ({
+                connectionId,
+                userName,
+              }: {
+                connectionId: string;
+                userName: string;
+              }) => ({
+                id: connectionId,
+                avatar: "",
+                name: "",
+                userName: userName,
+              })
+            )
           );
+          console.log(users);
         });
 
-        newConnection.on("UserJoined", (connectionId) => {
-          console.log(`User ${connectionId} joined`);
+        newConnection.on("UserJoined", ({ connectionId, userName }) => {
+          console.log(`User ${userName} (${connectionId}) joined`);
           setUsers((prevUsers) => {
-            const existingUser = prevUsers.find(
+            // Check if the user already exists to avoid duplicates
+            const userExists = prevUsers.some(
               (user) => user.id === connectionId
             );
-            if (existingUser) return prevUsers; // User already exists
+            if (userExists) {
+              // Return the existing users without any changes
+              return prevUsers;
+            }
+
+            // Add the new user to the state
             return [
               ...prevUsers,
               {
                 id: connectionId,
-                avatar: "",
-                name: "",
-                userName: `User${connectionId}`,
+                avatar: "", // Placeholder for avatar URL
+                name: "", // Placeholder for the user's real name, if available
+                userName: userName, // Use the UserName provided by the backend
               },
             ];
           });
+          console.log(users);
         });
 
         newConnection.on("UserLeft", (connectionId) => {
@@ -113,7 +130,7 @@ export default function LobbyPage({
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-6">
             <div className="flex items-center gap-2">
-              {/* Replace with your QuizHub or Logo component */}
+              <QuizHub />
               <h1 className="text-2xl font-bold">QuizHub</h1>
               <h1 className="text-2xl font-bold">RoomId : {roomid}</h1>
             </div>
