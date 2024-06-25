@@ -8,6 +8,7 @@ import Chat from "@/app/components/quiz/chat";
 import { QuizHub } from "@/app/components/QuizHubLogo";
 import { Button, ButtonGroup } from "@nextui-org/react";
 import { useEffect, useState } from "react";
+import { ChatIcon, IconUser } from "@/app/components/icons";
 import {
   HubConnection,
   HubConnectionBuilder,
@@ -178,7 +179,8 @@ export default function LobbyPage({
                 <h1 className="text-2xl font-bold">QuizHub</h1>
               </div>
               <h1 className="text-lg font-bold">
-                {lang == "en" ? "RoomCode" : "ოთახის კოდი"} : {roomid}
+                {lang == "en" ? "Room Code" : "ოთახის კოდი"} :
+                <span className="text-yellow-400"> {roomid}</span>
               </h1>
             </div>
 
@@ -187,18 +189,20 @@ export default function LobbyPage({
                 onClick={() => handleWindowChange("waitingUsers")}
                 color="warning"
                 variant="shadow"
+                endContent={<IconUser size={20} />}
                 className={
                   currentWindow == "Chat"
                     ? "text-white"
                     : "bg-white text-yellow-400 dark:bg-slate-800  "
                 }
               >
-                {lang == "en" ? "Waiting Users" : "ხალხი"}
+                {lang == "en" ? "Users" : "ხალხი"}
               </Button>
               <Button
                 onClick={() => handleWindowChange("Chat")}
                 color="warning"
                 variant="shadow"
+                endContent={<ChatIcon size={20} />}
                 className={
                   currentWindow == "waitingUsers"
                     ? "text-white"

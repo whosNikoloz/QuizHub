@@ -237,89 +237,92 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
               <ModalHeader className="flex flex-col gap-1 dark:text-white text-black">
                 {lang === "en" ? "New Quiz" : "ახალი ქვიზი"}
               </ModalHeader>
-              <ModalBody>
-                <div className="flex flex-col gap-2">
-                  <div className="flex flex-row gap-3">
-                    <Input
-                      placeholder={
-                        lang === "en"
-                          ? "Enter English Name"
-                          : "შეიყვანეთ ინგლისური სახელი"
-                      }
-                      classNames={{
-                        input: ["text-[16px] "],
-                        inputWrapper: ["dark:bg-slate-700"],
-                      }}
-                      value={englishName}
-                      onChange={(e) => setEnglishName(e.target.value)}
-                    />
-                    <label
-                      htmlFor="NameEnglish"
-                      className="text-xs items-center justify-start flex w-1/2"
-                    >
-                      {lang === "en" ? "English Name" : "ინგლისური სახელი"}
-                    </label>
-                  </div>
-
-                  <div className="flex flex-row gap-3">
-                    <Input
-                      placeholder={
-                        lang === "en"
-                          ? "Enter Georgian Name"
-                          : "შეიყვანეთ ქართული სახელი"
-                      }
-                      classNames={{
-                        input: ["text-[16px] "],
-                        inputWrapper: ["dark:bg-slate-700"],
-                      }}
-                      value={georgianName}
-                      onChange={(e) => setGeorgianName(e.target.value)}
-                    />
-                    <label
-                      htmlFor="NameGeorgian"
-                      className="text-xs items-center justify-start flex w-1/2"
-                    >
-                      {lang === "en" ? "Georgian Name" : "ქართული სახელი"}
-                    </label>
-                  </div>
-                  <div className="flex gap-4 p-3">
-                    <Input
-                      label={lang === "en" ? "Image URL" : "სურათის URL"}
-                      placeholder={
-                        lang === "en"
-                          ? "Enter Image URL"
-                          : "შეიყვანეთ სურათის URL"
-                      }
-                      classNames={{
-                        input: ["text-[16px] "],
-                        inputWrapper: ["dark:bg-slate-700"],
-                      }}
-                      value={image}
-                      onChange={(e) => setImage(e.target.value)}
-                    />
-                    {image && (
-                      <img
-                        src={image}
-                        alt="Product"
-                        className="rounded-2xl w-20 h-20"
+              <form action={handleCreateQuiz}>
+                <ModalBody>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex flex-row gap-3">
+                      <Input
+                        placeholder={
+                          lang === "en"
+                            ? "Enter English Name"
+                            : "შეიყვანეთ ინგლისური სახელი"
+                        }
+                        classNames={{
+                          input: ["text-[16px] "],
+                          inputWrapper: ["dark:bg-slate-700"],
+                        }}
+                        value={englishName}
+                        onChange={(e) => setEnglishName(e.target.value)}
                       />
-                    )}
+                      <label
+                        htmlFor="NameEnglish"
+                        className="text-xs items-center justify-start flex w-1/2"
+                      >
+                        {lang === "en" ? "English Name" : "ინგლისური სახელი"}
+                      </label>
+                    </div>
+
+                    <div className="flex flex-row gap-3">
+                      <Input
+                        placeholder={
+                          lang === "en"
+                            ? "Enter Georgian Name"
+                            : "შეიყვანეთ ქართული სახელი"
+                        }
+                        classNames={{
+                          input: ["text-[16px] "],
+                          inputWrapper: ["dark:bg-slate-700"],
+                        }}
+                        value={georgianName}
+                        onChange={(e) => setGeorgianName(e.target.value)}
+                      />
+                      <label
+                        htmlFor="NameGeorgian"
+                        className="text-xs items-center justify-start flex w-1/2"
+                      >
+                        {lang === "en" ? "Georgian Name" : "ქართული სახელი"}
+                      </label>
+                    </div>
+                    <div className="flex gap-4 p-3">
+                      <Input
+                        label={lang === "en" ? "Image URL" : "სურათის URL"}
+                        placeholder={
+                          lang === "en"
+                            ? "Enter Image URL"
+                            : "შეიყვანეთ სურათის URL"
+                        }
+                        classNames={{
+                          input: ["text-[16px] "],
+                          inputWrapper: ["dark:bg-slate-700"],
+                        }}
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
+                      />
+                      {image && (
+                        <img
+                          src={image}
+                          alt="Product"
+                          className="rounded-2xl w-20 h-20"
+                        />
+                      )}
+                    </div>
                   </div>
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="default" onClick={onNewClose}>
-                  {lang === "en" ? "Cancel" : "გაუქმება"}
-                </Button>
-                <Button
-                  color="warning"
-                  isLoading={isLoading}
-                  onClick={handleCreateQuiz}
-                  className="text-white"
-                >
-                  {lang === "en" ? "Create" : "დამატება"}
-                </Button>
-              </ModalFooter>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="default" onClick={onNewClose}>
+                    {lang === "en" ? "Cancel" : "გაუქმება"}
+                  </Button>
+                  <Button
+                    color="warning"
+                    type="submit"
+                    isLoading={isLoading}
+                    onClick={handleCreateQuiz}
+                    className="text-white"
+                  >
+                    {lang === "en" ? "Create" : "დამატება"}
+                  </Button>
+                </ModalFooter>
+              </form>
             </>
           )}
         </ModalContent>

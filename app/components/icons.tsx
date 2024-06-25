@@ -1191,7 +1191,7 @@ export const EyeSlashFilled = (
   /*Fab*/
 }
 
-export const Chat = ({
+export const ChatIcon = ({
   size,
   height,
   width,

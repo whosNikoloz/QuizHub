@@ -464,106 +464,109 @@ export default function AuthModals({
       >
         <ModalContent>
           <>
-            <ModalHeader className="flex flex-col gap-1 dark:text-white text-slate-800">
-              {loginData.title}
-            </ModalHeader>
-            <ModalBody>
-              <Input
-                value={loginState.email}
-                type="email"
-                label={loginData.email}
-                classNames={{
-                  input: ["text-[16px] "],
-                  inputWrapper: ["dark:bg-slate-700"],
-                }}
-                onChange={(e) =>
-                  setLoginState({ ...loginState, email: e.target.value })
-                }
-                onBlur={handleLoginEmailExists}
-                startContent={
-                  <i className="fas fa-envelope dark:text-white text-slate-800"></i>
-                }
-                endContent={
-                  logEmailHasBlurred ? (
-                    <InputLoadingBtn loading={Logloader} success={true} />
-                  ) : (
-                    <></>
-                  )
-                }
-                isInvalid={loginEmailError !== ""}
-                errorMessage={loginEmailError}
-              />
-              <Input
-                type="password"
-                label={loginData.password}
-                classNames={{
-                  input: ["text-[16px] "],
-                  inputWrapper: ["dark:bg-slate-700"],
-                }}
-                value={loginState.password}
-                onChange={(e) =>
-                  setLoginState({ ...loginState, password: e.target.value })
-                }
-                startContent={
-                  <i className="fas fa-lock dark:text-white text-slate-800"></i>
-                }
-                isClearable
-                onClear={handleLoginPasswordClear}
-                isInvalid={loginPasswordError !== ""}
-                errorMessage={loginPasswordError}
-              />
-              <div className="flex  px-1 justify-end">
-                <Link
-                  color="warning"
-                  href={`${lang}/user/forgot-password`}
-                  size="sm"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-              {loginError && (
-                <div className="text-red-500 text-sm text-center font-mono">
-                  {loginError}
+            <form action={handleLogin}>
+              <ModalHeader className="flex flex-col gap-1 dark:text-white text-slate-800">
+                {loginData.title}
+              </ModalHeader>
+              <ModalBody>
+                <Input
+                  value={loginState.email}
+                  type="email"
+                  label={loginData.email}
+                  classNames={{
+                    input: ["text-[16px] "],
+                    inputWrapper: ["dark:bg-slate-700"],
+                  }}
+                  onChange={(e) =>
+                    setLoginState({ ...loginState, email: e.target.value })
+                  }
+                  onBlur={handleLoginEmailExists}
+                  startContent={
+                    <i className="fas fa-envelope dark:text-white text-slate-800"></i>
+                  }
+                  endContent={
+                    logEmailHasBlurred ? (
+                      <InputLoadingBtn loading={Logloader} success={true} />
+                    ) : (
+                      <></>
+                    )
+                  }
+                  isInvalid={loginEmailError !== ""}
+                  errorMessage={loginEmailError}
+                />
+                <Input
+                  type="password"
+                  label={loginData.password}
+                  classNames={{
+                    input: ["text-[16px] "],
+                    inputWrapper: ["dark:bg-slate-700"],
+                  }}
+                  value={loginState.password}
+                  onChange={(e) =>
+                    setLoginState({ ...loginState, password: e.target.value })
+                  }
+                  startContent={
+                    <i className="fas fa-lock dark:text-white text-slate-800"></i>
+                  }
+                  isClearable
+                  onClear={handleLoginPasswordClear}
+                  isInvalid={loginPasswordError !== ""}
+                  errorMessage={loginPasswordError}
+                />
+                <div className="flex  px-1 justify-end">
+                  <Link
+                    color="warning"
+                    href={`${lang}/user/forgot-password`}
+                    size="sm"
+                  >
+                    Forgot password?
+                  </Link>
                 </div>
-              )}
-            </ModalBody>
-            <ModalFooter className="flex justify-between">
-              <div className="flex justify-center items-center gap-2">
-                <Button
-                  onClick={() => handleRegisterOAuth("github")}
-                  isIconOnly
-                  radius="lg"
-                  className="text-2xl"
-                >
-                  <i className="fab fa-github"></i>
-                </Button>
-                <Button
-                  onClick={() => handleRegisterOAuth("gmail")}
-                  isIconOnly
-                  radius="lg"
-                  className="text-xl"
-                >
-                  <i className="fab fa-google"></i>
-                </Button>
-              </div>
-              <div className="flex justify-center items-center gap-2">
-                <Button
-                  color="default"
-                  variant="flat"
-                  onPress={() => handleModeToggle("Signup")}
-                >
-                  {regData.title}
-                </Button>
-                <Button
-                  color="warning"
-                  className="text-white"
-                  isLoading={isLoading}
-                  onPress={handleLogin}
-                >
-                  {loginData.button}
-                </Button>
-              </div>
-            </ModalFooter>
+                {loginError && (
+                  <div className="text-red-500 text-sm text-center font-mono">
+                    {loginError}
+                  </div>
+                )}
+              </ModalBody>
+              <ModalFooter className="flex justify-between">
+                <div className="flex justify-center items-center gap-2">
+                  <Button
+                    onClick={() => handleRegisterOAuth("github")}
+                    isIconOnly
+                    radius="lg"
+                    className="text-2xl"
+                  >
+                    <i className="fab fa-github"></i>
+                  </Button>
+                  <Button
+                    onClick={() => handleRegisterOAuth("gmail")}
+                    isIconOnly
+                    radius="lg"
+                    className="text-xl"
+                  >
+                    <i className="fab fa-google"></i>
+                  </Button>
+                </div>
+                <div className="flex justify-center items-center gap-2">
+                  <Button
+                    color="default"
+                    variant="flat"
+                    onPress={() => handleModeToggle("Signup")}
+                  >
+                    {regData.title}
+                  </Button>
+                  <Button
+                    color="warning"
+                    type="submit"
+                    className="text-white"
+                    isLoading={isLoading}
+                    onPress={handleLogin}
+                  >
+                    {loginData.button}
+                  </Button>
+                </div>
+              </ModalFooter>
+            </form>
           </>
         </ModalContent>
       </Modal>
@@ -599,153 +602,159 @@ export default function AuthModals({
           <ModalHeader className="flex flex-col gap-1 dark:text-white text-slate-800">
             {regData.title}
           </ModalHeader>
-          <ModalBody>
-            <Input
-              type="text"
-              label={regData.username}
-              classNames={{
-                input: ["text-[16px] "],
-                inputWrapper: ["dark:bg-slate-700"],
-              }}
-              value={registrationState.username}
-              onChange={(e) =>
-                setRegistrationState({
-                  ...registrationState,
-                  username: e.target.value,
-                })
-              }
-              onBlur={handleRegisterUsernameExists}
-              startContent={
-                <i className="fas fa-user dark:text-white text-slate-800"></i>
-              }
-              endContent={
-                regUserNameHasBlurred ? (
-                  <InputLoadingBtn loading={Regusernameloader} success={true} />
-                ) : (
-                  <></>
-                )
-              }
-              isInvalid={regUserNameError !== ""}
-              errorMessage={regUserNameError}
-            />
-            <Input
-              type="email"
-              label={regData.email}
-              classNames={{
-                input: ["text-[16px] "],
-                inputWrapper: ["dark:bg-slate-700"],
-              }}
-              value={registrationState.email}
-              onChange={(e) =>
-                setRegistrationState({
-                  ...registrationState,
-                  email: e.target.value,
-                })
-              }
-              onBlur={handleRegisterEmailExists}
-              startContent={
-                <i className="fas fa-envelope dark:text-white text-slate-800"></i>
-              }
-              endContent={
-                regEmailHasBlurred ? (
-                  <InputLoadingBtn loading={Regemailloader} success={true} />
-                ) : (
-                  <></>
-                )
-              }
-              isInvalid={regEmailError !== ""}
-              errorMessage={regEmailError}
-            />
+          <form action={handleRegistration}>
+            <ModalBody>
+              <Input
+                type="text"
+                label={regData.username}
+                classNames={{
+                  input: ["text-[16px] "],
+                  inputWrapper: ["dark:bg-slate-700"],
+                }}
+                value={registrationState.username}
+                onChange={(e) =>
+                  setRegistrationState({
+                    ...registrationState,
+                    username: e.target.value,
+                  })
+                }
+                onBlur={handleRegisterUsernameExists}
+                startContent={
+                  <i className="fas fa-user dark:text-white text-slate-800"></i>
+                }
+                endContent={
+                  regUserNameHasBlurred ? (
+                    <InputLoadingBtn
+                      loading={Regusernameloader}
+                      success={true}
+                    />
+                  ) : (
+                    <></>
+                  )
+                }
+                isInvalid={regUserNameError !== ""}
+                errorMessage={regUserNameError}
+              />
+              <Input
+                type="email"
+                label={regData.email}
+                classNames={{
+                  input: ["text-[16px] "],
+                  inputWrapper: ["dark:bg-slate-700"],
+                }}
+                value={registrationState.email}
+                onChange={(e) =>
+                  setRegistrationState({
+                    ...registrationState,
+                    email: e.target.value,
+                  })
+                }
+                onBlur={handleRegisterEmailExists}
+                startContent={
+                  <i className="fas fa-envelope dark:text-white text-slate-800"></i>
+                }
+                endContent={
+                  regEmailHasBlurred ? (
+                    <InputLoadingBtn loading={Regemailloader} success={true} />
+                  ) : (
+                    <></>
+                  )
+                }
+                isInvalid={regEmailError !== ""}
+                errorMessage={regEmailError}
+              />
 
-            <Input
-              type="password"
-              label={regData.password}
-              classNames={{
-                input: ["text-[16px] "],
-                inputWrapper: ["dark:bg-slate-700"],
-              }}
-              value={registrationState.password}
-              onChange={(e) =>
-                setRegistrationState({
-                  ...registrationState,
-                  password: e.target.value,
-                })
-              }
-              startContent={
-                <i className="fas fa-lock dark:text-white text-slate-800"></i>
-              }
-              isClearable
-              onClear={handleRegPasswordClear}
-              isInvalid={regRegPasswordError !== ""}
-              errorMessage={regRegPasswordError}
-              onBlur={handleBlurPassword}
-            />
-            <Input
-              type="password"
-              classNames={{
-                input: ["text-[16px] "],
-                inputWrapper: ["dark:bg-slate-700"],
-              }}
-              label={regData.confirmPassword}
-              value={registrationState.confirmPassword}
-              onChange={(e) =>
-                setRegistrationState({
-                  ...registrationState,
-                  confirmPassword: e.target.value,
-                })
-              }
-              onBlur={handleBlurConfirmPassword}
-              startContent={
-                <i className="fas fa-lock dark:text-white text-slate-800"></i>
-              }
-              isClearable
-              onClear={handleRegConfirmPasswordClear}
-              isInvalid={confirmPasswordError !== ""}
-              errorMessage={confirmPasswordError}
-            />
-            {regError && (
-              <div className="text-red-500 text-sm text-center font-mono">
-                {regError}
+              <Input
+                type="password"
+                label={regData.password}
+                classNames={{
+                  input: ["text-[16px] "],
+                  inputWrapper: ["dark:bg-slate-700"],
+                }}
+                value={registrationState.password}
+                onChange={(e) =>
+                  setRegistrationState({
+                    ...registrationState,
+                    password: e.target.value,
+                  })
+                }
+                startContent={
+                  <i className="fas fa-lock dark:text-white text-slate-800"></i>
+                }
+                isClearable
+                onClear={handleRegPasswordClear}
+                isInvalid={regRegPasswordError !== ""}
+                errorMessage={regRegPasswordError}
+                onBlur={handleBlurPassword}
+              />
+              <Input
+                type="password"
+                classNames={{
+                  input: ["text-[16px] "],
+                  inputWrapper: ["dark:bg-slate-700"],
+                }}
+                label={regData.confirmPassword}
+                value={registrationState.confirmPassword}
+                onChange={(e) =>
+                  setRegistrationState({
+                    ...registrationState,
+                    confirmPassword: e.target.value,
+                  })
+                }
+                onBlur={handleBlurConfirmPassword}
+                startContent={
+                  <i className="fas fa-lock dark:text-white text-slate-800"></i>
+                }
+                isClearable
+                onClear={handleRegConfirmPasswordClear}
+                isInvalid={confirmPasswordError !== ""}
+                errorMessage={confirmPasswordError}
+              />
+              {regError && (
+                <div className="text-red-500 text-sm text-center font-mono">
+                  {regError}
+                </div>
+              )}
+            </ModalBody>
+            <ModalFooter className="flex justify-between">
+              <div className="flex justify-center items-center gap-2">
+                <Button
+                  onClick={() => handleRegisterOAuth("github")}
+                  isIconOnly
+                  radius="lg"
+                  className="text-2xl"
+                >
+                  <i className="fab fa-github"></i>
+                </Button>
+                <Button
+                  onClick={() => handleRegisterOAuth("gmail")}
+                  isIconOnly
+                  radius="lg"
+                  className="text-xl"
+                >
+                  <i className="fab fa-google"></i>
+                </Button>
               </div>
-            )}
-          </ModalBody>
-          <ModalFooter className="flex justify-between">
-            <div className="flex justify-center items-center gap-2">
-              <Button
-                onClick={() => handleRegisterOAuth("github")}
-                isIconOnly
-                radius="lg"
-                className="text-2xl"
-              >
-                <i className="fab fa-github"></i>
-              </Button>
-              <Button
-                onClick={() => handleRegisterOAuth("gmail")}
-                isIconOnly
-                radius="lg"
-                className="text-xl"
-              >
-                <i className="fab fa-google"></i>
-              </Button>
-            </div>
-            <div className="flex justify-center items-center gap-2">
-              <Button
-                color="default"
-                variant="flat"
-                onPress={() => handleModeToggle("login")}
-              >
-                {loginData.title}
-              </Button>
-              <Button
-                color="warning"
-                className="text-white"
-                isLoading={isLoading}
-                onPress={handleRegistration}
-              >
-                {regData.button}
-              </Button>
-            </div>
-          </ModalFooter>
+              <div className="flex justify-center items-center gap-2">
+                <Button
+                  color="default"
+                  variant="flat"
+                  onPress={() => handleModeToggle("login")}
+                >
+                  {loginData.title}
+                </Button>
+                <Button
+                  color="warning"
+                  type="submit"
+                  className="text-white"
+                  isLoading={isLoading}
+                  onPress={handleRegistration}
+                >
+                  {regData.button}
+                </Button>
+              </div>
+            </ModalFooter>
+          </form>
         </ModalContent>
       </Modal>
     </>

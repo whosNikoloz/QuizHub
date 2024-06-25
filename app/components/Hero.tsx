@@ -108,7 +108,6 @@ export const Hero = ({
       return;
     } else {
       setRoomIdHasBlurred(false);
-      setLogLoader(false);
       toast.error("Room does not exist");
     }
   };
@@ -135,7 +134,7 @@ export const Hero = ({
       toast.error("Please fill in all fields");
       return;
     }
-    if (roomId !== "" && userName !== "") {
+    if (roomId !== "" && userName !== "" && !Logloader) {
       localStorage.setItem("userName", userName);
       router.push(`${lang}/lobby/${roomId}`);
     }
@@ -287,64 +286,66 @@ export const Hero = ({
       >
         <ModalContent>
           <>
-            <ModalHeader className="flex flex-col gap-1 dark:text-white text-slate-800">
-              {lang == "en" ? "Join Room" : "შეუერთდი ქვიზში"}
-            </ModalHeader>
-            <ModalBody>
-              <Input
-                value={roomId}
-                type="email"
-                label={"RoomId"}
-                classNames={{
-                  input: ["text-[16px] "],
-                  inputWrapper: ["dark:bg-slate-700"],
-                }}
-                onChange={(e) => setRoomId(e.target.value)}
-                onBlur={handleRoomExists}
-                startContent={
-                  <i className="fas fa-id-badge dark:text-white text-slate-800"></i>
-                }
-                endContent={
-                  roomidHasBlurred ? (
-                    <InputLoadingBtn loading={Logloader} success={true} />
-                  ) : (
-                    <></>
-                  )
-                }
-              />
-              <Input
-                type="text"
-                label={"Username"}
-                classNames={{
-                  input: ["text-[16px] "],
-                  inputWrapper: ["dark:bg-slate-700"],
-                }}
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                startContent={
-                  <i className="fas fa-user dark:text-white text-slate-800"></i>
-                }
-                isClearable
-                // onClear={handleLoginPasswordClear}
-                // isInvalid={loginPasswordError !== ""}
-                // errorMessage={loginPasswordError}
-              />
-              {/* {loginError && (
+            <form action={handleJoinRoomSubmit}>
+              <ModalHeader className="flex flex-col gap-1 dark:text-white text-slate-800">
+                {lang == "en" ? "Join Room" : "შეუერთდი ქვიზში"}
+              </ModalHeader>
+              <ModalBody>
+                <Input
+                  value={roomId}
+                  type="email"
+                  label={"RoomId"}
+                  classNames={{
+                    input: ["text-[16px] "],
+                    inputWrapper: ["dark:bg-slate-700"],
+                  }}
+                  onChange={(e) => setRoomId(e.target.value)}
+                  onBlur={handleRoomExists}
+                  startContent={
+                    <i className="fas fa-id-badge dark:text-white text-slate-800"></i>
+                  }
+                  endContent={
+                    roomidHasBlurred ? (
+                      <InputLoadingBtn loading={Logloader} success={true} />
+                    ) : (
+                      <></>
+                    )
+                  }
+                />
+                <Input
+                  type="text"
+                  label={"Username"}
+                  classNames={{
+                    input: ["text-[16px] "],
+                    inputWrapper: ["dark:bg-slate-700"],
+                  }}
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  startContent={
+                    <i className="fas fa-user dark:text-white text-slate-800"></i>
+                  }
+                  isClearable
+                  // onClear={handleLoginPasswordClear}
+                  // isInvalid={loginPasswordError !== ""}
+                  // errorMessage={loginPasswordError}
+                />
+                {/* {loginError && (
                 <div className="text-red-500 text-sm text-center font-mono">
                   {loginError}
                 </div>
               )} */}
-            </ModalBody>
-            <ModalFooter className="flex justify-end">
-              <Button
-                color="warning"
-                className="text-white"
-                // isLoading={isLoading}
-                onPress={handleJoinRoomSubmit}
-              >
-                {lang == "en" ? "Join" : "შესვლა"}
-              </Button>
-            </ModalFooter>
+              </ModalBody>
+              <ModalFooter className="flex justify-end">
+                <Button
+                  color="warning"
+                  className="text-white"
+                  type="submit"
+                  onPress={handleJoinRoomSubmit}
+                >
+                  {lang == "en" ? "Join" : "შესვლა"}
+                </Button>
+              </ModalFooter>
+            </form>
           </>
         </ModalContent>
       </Modal>
