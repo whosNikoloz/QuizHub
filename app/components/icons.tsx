@@ -875,20 +875,12 @@ export const Quiz = ({
   /*Learn/Lesson */
 }
 
-export const Arrow = ({
-  size,
-  height,
-  width,
-}: {
-  size: number;
-  height: number;
-  width: number;
-}) => {
+export const Arrow = ({ size }: { size: number }) => {
   return (
     <svg
       viewBox="0 0 24 24"
-      height={size || height || 24}
-      width={size || width || 24}
+      height={size}
+      width={size}
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -1428,6 +1420,25 @@ export const IconArrowRight = ({
       className="mr-2 text-muted-foreground"
     >
       <path d="m221.66 133.66-72 72a8 8 0 0 1-11.32-11.32L196.69 136H40a8 8 0 0 1 0-16h156.69l-58.35-58.34a8 8 0 0 1 11.32-11.32l72 72a8 8 0 0 1 0 11.32Z" />
+    </svg>
+  );
+};
+
+export const SentMessageIcon = ({ size }: { size?: number }) => {
+  return (
+    <svg
+      className={`w-${size} h-${size} transform rotate-45 -mt-px`}
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+      ></path>
     </svg>
   );
 };

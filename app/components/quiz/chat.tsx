@@ -1,6 +1,7 @@
 "use client";
 
 import { Locale } from "@/i18n.config";
+import { HubConnection } from "@microsoft/signalr";
 import {
   Card,
   CardBody,
@@ -9,35 +10,47 @@ import {
   Textarea,
   Button,
 } from "@nextui-org/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Arrow, IconArrowRight, SentMessageIcon } from "../icons";
 
 interface Message {
   id: number;
   content: string;
   user: string;
-  avatar: string;
+  role: string;
 }
 
-const ChatCard: React.FC<{ lang: Locale }> = ({ lang }) => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      content: "Hey everyone, excited to be here!",
-      user: "John Doe",
-      avatar:
-        "https://i.guim.co.uk/img/media/c8c00617b792d1d53f2d2b318820d5758dc61551/231_0_2968_1782/master/2968.jpg?width=1200&quality=85&auto=format&fit=max&s=99459057199a54c97181e29b0947b5fb",
-    },
-    {
-      id: 1,
-      content: "Hey everyone, excited to be here!",
-      user: "John Doe",
-      avatar:
-        "https://i.guim.co.uk/img/media/c8c00617b792d1d53f2d2b318820d5758dc61551/231_0_2968_1782/master/2968.jpg?width=1200&quality=85&auto=format&fit=max&s=99459057199a54c97181e29b0947b5fb",
-    },
-  ]);
+const ChatCard: React.FC<{
+  lang: Locale;
+  connection: HubConnection;
+  roomid: string;
+}> = ({ lang, connection, roomid }) => {
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  useEffect(() => {
+    // Subscribe to ReceiveMessage event
+    connection.on("ReceiveMessage", (data) => {
+      const { userName, message, role } = data;
+      console.log("Received message:", data);
+      const newMessage: Message = {
+        id: Date.now(),
+        content: message,
+        user: userName,
+        role: role, // Assuming all received messages are from students
+      };
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    });
+
+    return () => {
+      // Clean up event listener when component unmounts
+      connection.off("ReceiveMessage");
+    };
+  }, [connection]);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setInputValue(e.target.value);
   };
 
@@ -47,13 +60,26 @@ const ChatCard: React.FC<{ lang: Locale }> = ({ lang }) => {
         id: Date.now(),
         content: inputValue,
         user: "Current User",
-        avatar:
-          "https://i.guim.co.uk/img/media/c8c00617b792d1d53f2d2b318820d5758dc61551/231_0_2968_1782/master/2968.jpg?width=1200&quality=85&auto=format&fit=max&s=99459057199a54c97181e29b0947b5fb",
+        role: "student",
       };
-
-      setMessages([...messages, newMessage]);
       setInputValue("");
+
+      // Send message via SignalR
+      connection
+        .invoke("SendMessage", roomid, newMessage.content)
+        .catch((error) => {
+          console.error("Error sending message:", error);
+        });
     }
+  };
+
+  const formatTime = (timestamp: number) => {
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
   };
 
   return (
@@ -62,22 +88,35 @@ const ChatCard: React.FC<{ lang: Locale }> = ({ lang }) => {
         {messages.length > 0 ? (
           messages.map((message) => (
             <div key={message.id} className="flex items-start gap-4 ">
-              <Avatar className="w-10 h-10">
+              <div className="w-10 h-10">
                 <img
                   className="h-full w-full rounded-xl object-cover"
-                  src={message.avatar}
+                  src={
+                    message.role === "teacher"
+                      ? "https://i.guim.co.uk/img/media/fbb1974c1ebbb6bf4c4beae0bb3d9cb93901953c/10_7_2380_1428/master/2380.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=223c0e9582e77253911be07c8cad564f"
+                      : "https://i.guim.co.uk/img/media/c8c00617b792d1d53f2d2b318820d5758dc61551/231_0_2968_1782/master/2968.jpg?width=1200&quality=85&auto=format&fit=max&s=99459057199a54c97181e29b0947b5fb"
+                  }
                   alt=""
                 />
-              </Avatar>
+              </div>
               <div className="grid gap-1">
-                <div className="font-medium">{message.user}</div>
+                <div className="flex items-center space-x-2 rtl:space-x-reverse ">
+                  <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                    {message.user}
+                  </span>
+                  <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                    {formatTime(message.id)}
+                  </span>
+                </div>
                 <div className="text-muted-foreground">{message.content}</div>
               </div>
             </div>
           ))
         ) : (
           <div className="text-center text-muted-foreground">
-            No messages yet. Start the conversation!
+            {lang === "en"
+              ? "No messages yet. Start the conversation!"
+              : "ჯერ არ არის შეტყობინებები. დაიწყე საუბარი!"}
           </div>
         )}
       </CardBody>
@@ -88,7 +127,8 @@ const ChatCard: React.FC<{ lang: Locale }> = ({ lang }) => {
             minRows={1}
             variant="bordered"
             size="sm"
-            className="min-h-[50px] "
+            value={inputValue}
+            onChange={handleInputChange}
             classNames={{
               input: ["text-[16px] "],
             }}
@@ -100,9 +140,11 @@ const ChatCard: React.FC<{ lang: Locale }> = ({ lang }) => {
           <Button
             variant="shadow"
             color="warning"
-            className="inline-flex mb-2 items-center justify-center rounded-md text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50  h-10 "
+            type="submit"
+            onClick={handleSendMessage}
+            className="inline-flex  items-center justify-center rounded-md text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50 h-10"
           >
-            Send
+            {lang === "en" ? "Send" : "გაგზავნა"}
           </Button>
         </form>
       </CardFooter>

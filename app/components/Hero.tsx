@@ -61,6 +61,7 @@ export const Hero = ({
   const [roomidHasBlurred, setRoomIdHasBlurred] = useState(false);
   const [Logloader, setLogLoader] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingCreateRoom, setIsLoadingCreateRoom] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
   const RoomsApi = RoomApi();
@@ -80,14 +81,17 @@ export const Hero = ({
   };
 
   const handleCreateRoom = async () => {
+    setIsLoadingCreateRoom(true);
     if (!user) {
       onOpenSignupModal();
       toast.error("Please sign in to create a room");
+      setIsLoadingCreateRoom(false);
       return;
     }
     if (user) {
       await fetchQuizzes();
       createRoomonOpen();
+      setIsLoadingCreateRoom(false);
       return;
     }
   };
@@ -193,6 +197,7 @@ export const Hero = ({
                 href="#_"
                 size="lg"
                 variant="shadow"
+                isLoading={isLoadingCreateRoom}
                 onClick={handleCreateRoom}
                 className="w-full text-slate-600 bg-gray-100 p-5 font-bold text-lg px-6 py-3 mb-2 rounded-2xl sm:w-auto sm:mb-0"
               >
@@ -225,7 +230,7 @@ export const Hero = ({
                   </div>
                 </div>
                 <img
-                  src="https://cdn.devdojo.com/images/march2021/green-dashboard.jpg"
+                  src="https://res.cloudinary.com/jerrick/image/upload/v1527288680/akh0eoq6hrqbgtjuqjwp.jpg"
                   alt=""
                 />
               </div>
