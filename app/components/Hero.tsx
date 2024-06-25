@@ -38,7 +38,7 @@ const HeroData = {
     subtitle2: "ინტერაქტიული ქვიზებით",
     description:
       "გადაარჩიე შეკითხვები და შექმენი შეკითხვების კორპუსი, რომ შექმნილი იყოს სწრაფი და ეფექტური.",
-    button1: "შეერთდი ქვიზს",
+    button1: "შეუერთდი ქვიზს",
     button2: "შექმენი ქვიზი",
   },
 };
@@ -288,7 +288,7 @@ export const Hero = ({
         <ModalContent>
           <>
             <ModalHeader className="flex flex-col gap-1 dark:text-white text-slate-800">
-              {lang == "en" ? "Join Room" : "შეერთდი ქვიზში"}
+              {lang == "en" ? "Join Room" : "შეუერთდი ქვიზში"}
             </ModalHeader>
             <ModalBody>
               <Input
