@@ -26,6 +26,8 @@ export default function LobbyPage({
     setCurrentWindow(window);
   };
 
+  const [isTeacher, setIsTeacher] = useState(false);
+
   const [users, setUsers] = useState<
     { id: string; userName: string; role: string }[]
   >([]);
@@ -53,7 +55,7 @@ export default function LobbyPage({
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl("https://localhost:45455/quizHub")
+      .withUrl("https://earlyashleaf18.conveyor.cloud/quizHub")
       .configureLogging(LogLevel.Information)
       .build();
 
@@ -62,7 +64,6 @@ export default function LobbyPage({
     const startConnection = async () => {
       try {
         await newConnection.start();
-        console.log("SignalR Connected");
 
         await newConnection.send("JoinRoom", roomid, userName, userId);
 
@@ -118,6 +119,10 @@ export default function LobbyPage({
             prevUsers.filter((user) => user.id !== connectionId)
           );
           toast.success(`${userName} left the room`);
+        });
+
+        newConnection.on("ShowStartTestButton", () => {
+          setIsTeacher(true); // Set state to show the Start Test button
         });
       } catch (error) {
         console.error("SignalR Connection Error: ", error);
@@ -176,6 +181,7 @@ export default function LobbyPage({
                 {lang == "en" ? "RoomCode" : "ოთახის კოდი"} : {roomid}
               </h1>
             </div>
+
             <ButtonGroup>
               <Button
                 onClick={() => handleWindowChange("waitingUsers")}
@@ -203,7 +209,18 @@ export default function LobbyPage({
               </Button>{" "}
             </ButtonGroup>
             {currentWindow === "waitingUsers" ? (
-              <WaitingUsers users={users} />
+              <>
+                <WaitingUsers users={users} />
+                {isTeacher && ( // Show button only if user is a teacher
+                  <Button
+                    color="warning"
+                    className="text-white"
+                    variant="shadow"
+                  >
+                    {lang == "en" ? "Start Test" : "ტესტის დაწყება"}
+                  </Button>
+                )}
+              </>
             ) : (
               <Chat lang={lang} connection={connection} roomid={roomid} />
             )}

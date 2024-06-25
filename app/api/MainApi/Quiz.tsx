@@ -1,6 +1,6 @@
 const quiz_API = "https://localhost:45455/api/Quiz/";
 
-const quiz_conveyAPI = "https://firstbrushedtower49.conveyor.cloud/api/Quiz/";
+const quiz_conveyAPI = "https://earlyashleaf18.conveyor.cloud/api/Quiz/";
 
 interface CreateQuiz {
   name_en: string;
@@ -12,7 +12,7 @@ const QuizApi = () => {
   const handleCreateQuiz = async (quiz: CreateQuiz) => {
     try {
       const token = localStorage.getItem("jwt");
-      const response = await fetch(`${quiz_API}`, {
+      const response = await fetch(`${quiz_conveyAPI}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const QuizApi = () => {
   const handleEditQuiz = async (quizId: number, quiz: CreateQuiz) => {
     try {
       const token = localStorage.getItem("jwt");
-      const response = await fetch(`${quiz_API}${quizId}`, {
+      const response = await fetch(`${quiz_conveyAPI}${quizId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const QuizApi = () => {
   const handleDeleteQuiz = async (quizId: number) => {
     try {
       const token = localStorage.getItem("jwt");
-      const response = await fetch(`${quiz_API}${quizId}`, {
+      const response = await fetch(`${quiz_conveyAPI}${quizId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -97,7 +97,7 @@ const QuizApi = () => {
 
   const handleGetQuiz = async (quizId: number) => {
     try {
-      const response = await fetch(`${quiz_API}${quizId}`, {
+      const response = await fetch(`${quiz_conveyAPI}${quizId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const QuizApi = () => {
   const handleGetQuizzes = async () => {
     try {
       const token = localStorage.getItem("jwt");
-      const response = await fetch(`${quiz_API}GetQuizzes`, {
+      const response = await fetch(`${quiz_conveyAPI}GetQuizzes`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

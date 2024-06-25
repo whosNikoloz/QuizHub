@@ -83,7 +83,7 @@ const ChatCard: React.FC<{
   };
 
   return (
-    <Card className="flex flex-col w-full mx-auto bg-background rounded-2xl max-w-2xl min-h-[80vh] shadow-lg">
+    <Card className="flex flex-col w-full mx-auto bg-background rounded-2xl max-w-2xl min-h-[68vh] shadow-lg">
       <CardBody className="flex-1 overflow-y-auto p-6 space-y-4 max-h-[70vh]">
         {messages.length > 0 ? (
           messages.map((message) => (

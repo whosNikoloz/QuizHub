@@ -1,15 +1,8 @@
 "use client";
 
 import { Card, CardBody } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import { QuizHub } from "../QuizHubLogo";
+import React from "react";
 import { Reveal } from "../RevealFramer";
-import {
-  HubConnection,
-  HubConnectionBuilder,
-  LogLevel,
-} from "@microsoft/signalr";
-import toast from "react-hot-toast";
 
 interface User {
   id: string;
@@ -26,7 +19,7 @@ const WaitingUsers: React.FC<WaitingUsersProps> = ({ users }) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
       {users.map((user) => (
         <Reveal direction="left" key={user.id} once={true}>
-          <Card className="w-full bg-white/5 shadow-lg hover:bg-white/10">
+          <Card className="w-full bg-white/5 shadow-lg hover:bg-white/10 ">
             <CardBody>
               <div className="flex h-full w-full items-start justify-between   px-3  transition-all duration-150">
                 <div className="flex items-center gap-3">

@@ -1,13 +1,13 @@
 const quiz_API = "https://localhost:45455/api/QuizFlow/";
 
-const quiz_conveyAPI = "https://firstbrushedtower49.conveyor.cloud/api/Quiz/";
+const quiz_conveyAPI = "https://earlyashleaf18.conveyor.cloud/api/QuizFlow/";
 
 const RoomApi = () => {
   const handleCreateRoom = async (quizid: number) => {
     try {
       const token = localStorage.getItem("jwt");
       // Adjust the URL to include the correct endpoint and query parameter for quizid
-      const url = `${quiz_API}create-room?quizid=${quizid}`;
+      const url = `${quiz_conveyAPI}create-room?quizid=${quizid}`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -45,7 +45,7 @@ const RoomApi = () => {
 
   const handleCheckRoomexists = async (roomCode: string) => {
     try {
-      const url = `${quiz_API}checkroom/${roomCode}`;
+      const url = `${quiz_conveyAPI}checkroom/${roomCode}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
