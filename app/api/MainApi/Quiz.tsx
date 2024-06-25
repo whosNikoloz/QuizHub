@@ -12,7 +12,7 @@ const QuizApi = () => {
   const handleCreateQuiz = async (quiz: CreateQuiz) => {
     try {
       const token = localStorage.getItem("jwt");
-      const response = await fetch(`${quiz_conveyAPI}`, {
+      const response = await fetch(`${quiz_API}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const QuizApi = () => {
   const handleEditQuiz = async (quizId: number, quiz: CreateQuiz) => {
     try {
       const token = localStorage.getItem("jwt");
-      const response = await fetch(`${quiz_conveyAPI}${quizId}`, {
+      const response = await fetch(`${quiz_API}${quizId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const QuizApi = () => {
   const handleDeleteQuiz = async (quizId: number) => {
     try {
       const token = localStorage.getItem("jwt");
-      const response = await fetch(`${quiz_conveyAPI}${quizId}`, {
+      const response = await fetch(`${quiz_API}${quizId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -97,7 +97,7 @@ const QuizApi = () => {
 
   const handleGetQuiz = async (quizId: number) => {
     try {
-      const response = await fetch(`${quiz_conveyAPI}${quizId}`, {
+      const response = await fetch(`${quiz_API}${quizId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const QuizApi = () => {
   const handleGetQuizzes = async () => {
     try {
       const token = localStorage.getItem("jwt");
-      const response = await fetch(`${quiz_conveyAPI}GetQuizzes`, {
+      const response = await fetch(`${quiz_API}GetQuizzes`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

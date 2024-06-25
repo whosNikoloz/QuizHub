@@ -37,7 +37,7 @@ const HeroData = {
     subtitle: "თქვენი სტუდენტების ჩართვა",
     subtitle2: "ინტერაქტიული ქვიზებით",
     description:
-      "გადაარჩიე შეკითხვები და შექმეე შეკითხვების კორპუსი, რომ შექმნილი იყოს სწრაფი და ეფექტური.",
+      "გადაარჩიე შეკითხვები და შექმენი შეკითხვების კორპუსი, რომ შექმნილი იყოს სწრაფი და ეფექტური.",
     button1: "შეერთდი ქვიზს",
     button2: "შექმენი ქვიზი",
   },
@@ -172,7 +172,6 @@ export const Hero = ({
             <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
               <Button
                 color="warning"
-                href="#_"
                 size="lg"
                 variant="shadow"
                 onClick={handleJoinRoom}
@@ -194,10 +193,31 @@ export const Hero = ({
               </Button>
               <Button
                 color="default"
-                href="#_"
                 size="lg"
                 variant="shadow"
                 isLoading={isLoadingCreateRoom}
+                spinner={
+                  <svg
+                    className="animate-spin h-4 w-4 text-current"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                }
                 onClick={handleCreateRoom}
                 className="w-full text-slate-600 bg-gray-100 p-5 font-bold text-lg px-6 py-3 mb-2 rounded-2xl sm:w-auto sm:mb-0"
               >
@@ -358,7 +378,7 @@ export const Hero = ({
         <ModalContent>
           <>
             <ModalHeader className="flex flex-col gap-1 dark:text-white text-slate-800">
-              {lang == "en" ? "Create Room" : "შექმენი ქვიზი"}
+              {lang == "en" ? "Create Room" : "შექმენი ოთახი"}
             </ModalHeader>
             <ModalBody>
               <Select
@@ -369,7 +389,7 @@ export const Hero = ({
                 onChange={(event) =>
                   setSelectedOption(Number(event.target.value))
                 }
-                label="Select a Quiz"
+                label={lang === "en" ? "Select Quiz" : "აირჩიეთ ქვიზი"}
                 className="w-full"
               >
                 {quizzes

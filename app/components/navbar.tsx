@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
+import React, { ChangeEvent, ReactNode, useState } from "react";
 import { Link, Button, Avatar, Select, SelectItem } from "@nextui-org/react";
 import { useEffect } from "react";
 import { useUser } from "@/app/dbcontext/UserDbContext";
@@ -9,6 +9,13 @@ import { usePathname, useRouter } from "next/navigation";
 import UDropdown from "./Userdropdown";
 import AuthModals from "./user/auth";
 import { QuizHub } from "./QuizHubLogo";
+import {
+  MoonFilledIcon,
+  SunFilledIcon,
+  SystemIcon,
+  Settingicon,
+} from "./icons";
+import { useTheme } from "next-themes";
 
 export const Navbar = ({
   lng,
@@ -92,6 +99,46 @@ export const Navbar = ({
     }
   }, [lng]);
 
+  const { resolvedTheme, theme, setTheme } = useTheme();
+
+  const [startCon, setStartCon] = useState<ReactNode>(null);
+
+  useEffect(() => {
+    switch (theme) {
+      case "dark":
+        setStartCon(<MoonFilledIcon size={20} height={20} width={20} />);
+        break;
+      case "light":
+        setStartCon(<SunFilledIcon size={20} height={20} width={20} />);
+        break;
+      case "system":
+        setStartCon(<SystemIcon size={20} height={20} width={20} />);
+        break;
+      default:
+        setStartCon(<Settingicon size={20} height={20} width={20} />);
+        break;
+    }
+  }, [theme]);
+
+  const handleThemeChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedTheme = event.target.value;
+
+    switch (selectedTheme) {
+      case "dark":
+        setTheme("dark");
+        break;
+      case "light":
+        setTheme("light");
+        break;
+      case "system":
+        setTheme("system");
+        break;
+      default:
+        console.log("Invalid theme");
+        break;
+    }
+  };
+
   const handleLogout = () => {
     logout();
   };
@@ -164,7 +211,7 @@ export const Navbar = ({
                 </div>
                 <div className="hidden  sm:ml-6 sm:block ">
                   <div className="flex space-x-4">
-                    <Link
+                    {/* <Link
                       href={`/${lng}/social`}
                       className={`p-0 bg-transparent data-[hover=true]:bg-transparent font-bold text-md dark:text-yellow-300 text-yellow-600`}
                     >
@@ -175,14 +222,55 @@ export const Navbar = ({
                       className={`p-0 bg-transparent data-[hover=true]:bg-transparent font-bold text-md dark:text-white text-black `}
                     >
                       PAGE2
-                    </Link>
+                    </Link> */}
+
+                    <Select
+                      className={`w-[150px] mb-1 dark:text-white text-black`}
+                      size="sm"
+                      onChange={handleThemeChange}
+                      aria-label="Select theme"
+                      labelPlacement="outside"
+                      defaultSelectedKeys={[theme || "system"]}
+                      startContent={startCon}
+                    >
+                      <SelectItem
+                        key="dark"
+                        className="text-black dark:text-white"
+                        value={"dark"}
+                        startContent={
+                          <MoonFilledIcon size={20} height={20} width={20} />
+                        }
+                      >
+                        Dark
+                      </SelectItem>
+                      <SelectItem
+                        key="light"
+                        value={"light"}
+                        className="text-black dark:text-white"
+                        startContent={
+                          <SunFilledIcon size={20} height={20} width={20} />
+                        }
+                      >
+                        Light
+                      </SelectItem>
+                      <SelectItem
+                        key="system"
+                        className="text-black dark:text-white"
+                        value={"system"}
+                        startContent={
+                          <SystemIcon size={20} height={20} width={20} />
+                        }
+                      >
+                        System
+                      </SelectItem>
+                    </Select>
+
                     <Select
                       className={`w-[150px] mb-1 `}
                       size="sm"
                       onChange={(event: { target: { value: string } }) =>
                         handleLanguageChange(event.target.value)
                       }
-                      color="warning"
                       aria-label="Select Language"
                       labelPlacement="outside"
                       defaultSelectedKeys={[lng || `ka`]}

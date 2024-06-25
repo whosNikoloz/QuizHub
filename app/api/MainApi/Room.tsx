@@ -7,7 +7,7 @@ const RoomApi = () => {
     try {
       const token = localStorage.getItem("jwt");
       // Adjust the URL to include the correct endpoint and query parameter for quizid
-      const url = `${quiz_conveyAPI}create-room?quizid=${quizid}`;
+      const url = `${quiz_API}create-room?quizid=${quizid}`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -45,7 +45,7 @@ const RoomApi = () => {
 
   const handleCheckRoomexists = async (roomCode: string) => {
     try {
-      const url = `${quiz_conveyAPI}checkroom/${roomCode}`;
+      const url = `${quiz_API}checkroom/${roomCode}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {

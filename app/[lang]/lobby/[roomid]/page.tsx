@@ -55,7 +55,7 @@ export default function LobbyPage({
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl("https://earlyashleaf18.conveyor.cloud/quizHub")
+      .withUrl("https://localhost:45455/quizHub")
       .configureLogging(LogLevel.Information)
       .build();
 

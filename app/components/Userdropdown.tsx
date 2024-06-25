@@ -83,7 +83,9 @@ function UDropdown({
               onClick={handleDropdownClick}
             >
               <div className="h-14 px-4 py-1 gap-2">
-                <p className="font-semibold text-md">@{username}</p>
+                <p className="font-semibold text-md text-gray-800 dark:text-white">
+                  @{username}
+                </p>
                 <p className="font-semibold text-sm text-gray-500 dark:text-gray-400">
                   {email}
                 </p>
