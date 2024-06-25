@@ -110,7 +110,7 @@ function OtpEmail({
                 <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
                   <p>Didn&rsquo;t receive code?</p>{" "}
                   <p
-                    className="flex flex-row items-center text-yellow-600"
+                    className="flex flex-row items-center text-yellow-400"
                     rel="noopener noreferrer"
                   >
                     Resend

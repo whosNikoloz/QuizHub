@@ -20,7 +20,7 @@ export const Hero = ({ userEmail, lang }) => {
           <div className="text-center">
             <Reveal direction="up">
               <h1 className="text-4xl font-bold tracking-tight text-black sm:text-6xl dark:text-white">
-                Great Work, <span className="text-yellow-600">!</span>
+                Great Work, <span className="text-yellow-400">!</span>
               </h1>
             </Reveal>
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-white">

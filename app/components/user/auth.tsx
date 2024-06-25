@@ -146,6 +146,7 @@ export default function AuthModals({
       setIsLoading(false);
     } else {
       setIsLoading(false);
+      onCloseLogin();
     }
   };
 
