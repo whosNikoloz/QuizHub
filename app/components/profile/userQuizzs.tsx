@@ -8,12 +8,11 @@ import { QuizModel } from "@/app/interface/MainInterfaces";
 import QuizApi from "@/app/api/MainApi/Quiz";
 import { Locale } from "@/i18n.config";
 import CreateQuiz from "./CreateQuiz";
+import { useRouter } from "next/navigation";
 
 export const UserQuizs = ({ lang }: { lang: Locale }) => {
   const [quizzes, setQuizzes] = useState<QuizModel[]>([]);
-
   const api = useMemo(() => QuizApi(), []);
-
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
@@ -25,18 +24,14 @@ export const UserQuizs = ({ lang }: { lang: Locale }) => {
     };
     fetchQuizzes();
   }, [api]);
-
-  const {
-    isOpen: isEditOpen,
-    onOpen: onEditOpen,
-    onOpenChange: onEditOpenChange,
-  } = useDisclosure();
-
+  const router = useRouter();
   const handleQuizPress = useCallback(
-    (quiz: React.SetStateAction<QuizModel | null>) => {
-      onEditOpen();
+    (quiz: QuizModel | null) => {
+      if (quiz) {
+        router.push(`profile/${quiz.quizId}`);
+      }
     },
-    [onEditOpen]
+    [router]
   );
 
   const handleQuizCreated = (response: QuizModel) => {
