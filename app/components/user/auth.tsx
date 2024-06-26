@@ -539,7 +539,7 @@ export default function AuthModals({
                     <i className="fab fa-github"></i>
                   </Button>
                   <Button
-                    onClick={() => handleRegisterOAuth("gmail")}
+                    onClick={() => handleRegisterOAuth("google")}
                     isIconOnly
                     radius="lg"
                     className="text-xl"
@@ -727,7 +727,7 @@ export default function AuthModals({
                   <i className="fab fa-github"></i>
                 </Button>
                 <Button
-                  onClick={() => handleRegisterOAuth("gmail")}
+                  onClick={() => handleRegisterOAuth("google")}
                   isIconOnly
                   radius="lg"
                   className="text-xl"

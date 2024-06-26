@@ -178,7 +178,7 @@ export const Hero = ({
               >
                 {button1}
                 <svg
-                  className="w-4 h-4 ml-1"
+                  className="w-6 h-6 ml-1"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -222,7 +222,7 @@ export const Hero = ({
               >
                 {button2}
                 <svg
-                  className="w-4 h-4 ml-1"
+                  className="w-7 h-7 ml-1"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
