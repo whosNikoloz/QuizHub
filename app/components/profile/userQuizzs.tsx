@@ -2,99 +2,48 @@
 "use client";
 
 import { Reveal } from "../RevealFramer";
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  CardBody,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from "@nextui-org/react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { Card, CardBody, useDisclosure } from "@nextui-org/react";
 import { QuizModel } from "@/app/interface/MainInterfaces";
 import QuizApi from "@/app/api/MainApi/Quiz";
-import Image from "next/image";
-import toast from "react-hot-toast";
+import { Locale } from "@/i18n.config";
+import CreateQuiz from "./CreateQuiz";
 
-export const UserQuizs = ({ lang }: { lang: string }) => {
+export const UserQuizs = ({ lang }: { lang: Locale }) => {
   const [quizzes, setQuizzes] = useState<QuizModel[]>([]);
-  const [selectedQuiz, setSelectedQuiz] = useState<QuizModel | null>(null);
 
-  const HandleQuizpress = (quiz: QuizModel) => {
-    setSelectedQuiz(quiz);
-    console.log(quiz);
-    onEditOpen();
-  };
-
-  const api = QuizApi();
+  const api = useMemo(() => QuizApi(), []);
 
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
         const response = await api.handleGetQuizzes();
         setQuizzes(response);
-        console.log(quizzes);
       } catch (error) {
         console.error("Failed to fetch quizzes:", error);
       }
     };
     fetchQuizzes();
-  }, []);
+  }, [api]);
 
   const {
     isOpen: isEditOpen,
     onOpen: onEditOpen,
     onOpenChange: onEditOpenChange,
   } = useDisclosure();
-  const {
-    isOpen: isNewOpen,
-    onOpen: onNewOpen,
-    onOpenChange: onNewOpenChange,
-    onClose: onNewClose,
-  } = useDisclosure();
 
-  const [englishName, setEnglishName] = useState("");
-  const [georgianName, setGeorgianName] = useState("");
-  const [image, setImage] = useState(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2utl2G7i2baBL5wah_c9s2zIuJcLbeXhuWQ&s"
+  const handleQuizPress = useCallback(
+    (quiz: React.SetStateAction<QuizModel | null>) => {
+      onEditOpen();
+    },
+    [onEditOpen]
   );
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleCreateQuiz = async () => {
-    setIsLoading(true);
-    try {
-      const response = await api.handleCreateQuiz({
-        name_en: englishName,
-        name_ka: georgianName,
-        imageurl: image,
-      });
-
-      if (response.success) {
-        setQuizzes([
-          ...quizzes,
-          {
-            name_en: response.data.name_en,
-            name_ka: response.data.name_ka,
-            imageUrl: response.data.imageUrl,
-            quizId: response.data.quizId,
-            userid: response.data.userid,
-            questions: response.data.questions,
-          },
-        ]);
-        toast.success("Quiz created successfully");
-        onNewClose();
-      } else {
-        toast.error(`Failed to create quiz: ${response.error}`);
-      }
-    } catch (error) {
-      toast.error("An unexpected error occurred while creating the quiz.");
-    } finally {
-      setIsLoading(false);
+  const handleQuizCreated = (response: QuizModel) => {
+    if (!response) {
+      return;
     }
+    setQuizzes((prevQuizzes) => [...prevQuizzes, response]);
   };
 
   return (
@@ -110,19 +59,14 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
               <div className="text-lg font-bold text-navy-700 dark:text-white">
                 {lang === "en" ? "Quizzes" : "ქვიზები"}
               </div>
-              <Button
-                onClick={onNewOpen}
-                className="linear  bg-lightPrimary px-4 rounded-2xl py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-gray-100 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20"
-              >
-                {lang === "en" ? "Create +" : "დამატება +"}
-              </Button>
+              <CreateQuiz lang={lang} onQuizCreated={handleQuizCreated} />
             </div>
 
             {quizzes.map((quiz, index) => (
               <Reveal direction="up" key={index}>
                 <Card
                   isPressable
-                  onClick={() => HandleQuizpress(quiz)}
+                  onClick={() => handleQuizPress(quiz)}
                   className="w-full bg-transparent shadow-lg hover:bg-white/10"
                 >
                   <CardBody>
@@ -172,161 +116,6 @@ export const UserQuizs = ({ lang }: { lang: string }) => {
           </CardBody>
         </Card>
       </div>
-
-      <Modal
-        isOpen={isEditOpen}
-        placement="top-center"
-        className="dark:bg-slate-800"
-        onOpenChange={onEditOpenChange}
-      >
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                {lang === "en" ? "Edit Quiz" : "ქვიზის რედაქტირება"}
-              </ModalHeader>
-              <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
-                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
-                  eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
-              </ModalBody>
-              <ModalFooter>
-                <Button onPress={onClose}>
-                  {lang === "en" ? "Delete" : "წაშლა"}
-                </Button>
-                <Button
-                  color="warning"
-                  className="text-white"
-                  onPress={onClose}
-                >
-                  {lang === "en" ? "Save" : "შენახვა"}
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-
-      <Modal
-        isOpen={isNewOpen}
-        onOpenChange={onNewOpenChange}
-        radius="md"
-        className="dark:bg-slate-800"
-        placement="top-center"
-        backdrop="blur"
-        shouldBlockScroll={true}
-      >
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1 dark:text-white text-black">
-                {lang === "en" ? "New Quiz" : "ახალი ქვიზი"}
-              </ModalHeader>
-              <form action={handleCreateQuiz}>
-                <ModalBody>
-                  <div className="flex flex-col gap-2">
-                    <div className="flex flex-row gap-3">
-                      <Input
-                        placeholder={
-                          lang === "en"
-                            ? "Enter English Name"
-                            : "შეიყვანეთ ინგლისური სახელი"
-                        }
-                        classNames={{
-                          input: ["text-[16px] "],
-                          inputWrapper: ["dark:bg-slate-700"],
-                        }}
-                        value={englishName}
-                        onChange={(e) => setEnglishName(e.target.value)}
-                      />
-                      <label
-                        htmlFor="NameEnglish"
-                        className="text-xs items-center justify-start flex w-1/2"
-                      >
-                        {lang === "en" ? "English Name" : "ინგლისური სახელი"}
-                      </label>
-                    </div>
-
-                    <div className="flex flex-row gap-3">
-                      <Input
-                        placeholder={
-                          lang === "en"
-                            ? "Enter Georgian Name"
-                            : "შეიყვანეთ ქართული სახელი"
-                        }
-                        classNames={{
-                          input: ["text-[16px] "],
-                          inputWrapper: ["dark:bg-slate-700"],
-                        }}
-                        value={georgianName}
-                        onChange={(e) => setGeorgianName(e.target.value)}
-                      />
-                      <label
-                        htmlFor="NameGeorgian"
-                        className="text-xs items-center justify-start flex w-1/2"
-                      >
-                        {lang === "en" ? "Georgian Name" : "ქართული სახელი"}
-                      </label>
-                    </div>
-                    <div className="flex gap-4 p-3">
-                      <Input
-                        label={lang === "en" ? "Image URL" : "სურათის URL"}
-                        placeholder={
-                          lang === "en"
-                            ? "Enter Image URL"
-                            : "შეიყვანეთ სურათის URL"
-                        }
-                        classNames={{
-                          input: ["text-[16px] "],
-                          inputWrapper: ["dark:bg-slate-700"],
-                        }}
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
-                      />
-                      {image && (
-                        <img
-                          src={image}
-                          alt="Product"
-                          className="rounded-2xl w-20 h-20"
-                        />
-                      )}
-                    </div>
-                  </div>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="default" onClick={onNewClose}>
-                    {lang === "en" ? "Cancel" : "გაუქმება"}
-                  </Button>
-                  <Button
-                    color="warning"
-                    type="submit"
-                    isLoading={isLoading}
-                    onClick={handleCreateQuiz}
-                    className="text-white"
-                  >
-                    {lang === "en" ? "Create" : "დამატება"}
-                  </Button>
-                </ModalFooter>
-              </form>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
     </>
   );
 };
