@@ -142,7 +142,7 @@ function QuestionDisplay({ question, lang, onDelete }: GeneralEditProps) {
             </ModalBody>
             <ModalFooter className="flex justify-end">
               <Button
-                color="warning"
+                color="default"
                 className="text-white"
                 isLoading={isLoading}
                 onClick={handleDeleteQuestion}

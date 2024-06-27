@@ -94,7 +94,7 @@ export default function QuizManagerPage({
           };
           setQuiz(newQuiz);
         } else {
-          toast.error(`Failed to fetch quiz: ${response.error}`);
+          router.push("/");
         }
       } catch (error) {
         toast.error("An unexpected error occurred while fetching the quiz.");
@@ -158,7 +158,7 @@ export default function QuizManagerPage({
               </div>
               <div
                 className=" gap-2 cursor-pointer hidden sm:flex"
-                onClick={() => router.push(`/`)}
+                onClick={() => router.push(`/${lang}/user/profile`)}
               >
                 <img src={quiz?.imageUrl} className="w-10 h-10 rounded-lg" />
                 <h1 className="text-2xl font-bold dark:text-white text-black">
@@ -211,7 +211,7 @@ export default function QuizManagerPage({
 
             {quiz ? (
               <>
-                <div className="flex justify-center sm:flex-row flex-col p-6 w-full gap-10">
+                <div className="flex justify-center sm:flex-row flex-col p-6 w-full gap-20">
                   {quiz.questions && quiz.questions.length > 0 ? (
                     <>
                       <ol className="list-decimal">
