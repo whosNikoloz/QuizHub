@@ -120,7 +120,6 @@ export const Hero = ({
     setIsLoading(true);
     try {
       const response = await RoomsApi.handleCreateRoom(selectedOption);
-      createRoomonCLose();
       router.push(`${lang}/lobby/${response.data}`);
     } catch (error) {
       toast.error("Failed to create room");

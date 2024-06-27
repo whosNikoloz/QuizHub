@@ -8,19 +8,19 @@ export interface QuizModel {
 }
 
 export interface QuestionModel {
-  questionid: number;
+  questionId: number;
   question_en: string;
   question_ka: string;
   imageurl: string;
   videourl: string;
-  quizid: number;
-  answers: string[];
+  quizId: number;
+  answers: AnswersModel[];
 }
 
 export interface AnswersModel {
-  answerid: number;
+  answerId: number;
   answer_en: string;
   answer_ka: string;
-  iscorrect: boolean;
-  questionid: number;
+  isCorrect: boolean;
+  questionId: number;
 }

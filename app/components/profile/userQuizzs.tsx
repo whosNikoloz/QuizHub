@@ -80,29 +80,6 @@ export const UserQuizs = ({ lang }: { lang: Locale }) => {
                           </h5>
                         </div>
                       </div>
-                      <div className="mt-6 flex items-center justify-center text-navy-700 dark:text-white">
-                        <div>
-                          <svg
-                            stroke="currentColor"
-                            fill="currentColor"
-                            strokeWidth="0" // Corrected from stroke-width to strokeWidth for JSX compatibility
-                            viewBox="0 0 320 512"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"></path>
-                          </svg>
-                        </div>
-                        <div className="ml-1 flex items-center text-sm font-bold text-navy-700 dark:text-white">
-                          <p> </p>
-                          0.4<p className="ml-1">ETH</p>
-                        </div>
-                        <div className="ml-2 flex items-center text-sm font-normal text-gray-600 dark:text-white">
-                          <p>30s</p>
-                          <p className="ml-1">ago</p>
-                        </div>
-                      </div>
                     </div>
                   </CardBody>
                 </Card>
