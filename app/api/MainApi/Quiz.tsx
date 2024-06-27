@@ -104,12 +104,20 @@ const QuizApi = () => {
         },
       });
       if (response.ok) {
-        const quiz = await response.json();
-        return quiz;
+        const Quizz = await response.json(); // Parse the JSON response
+        return { success: true, data: Quizz };
+      } else if (response.status === 400) {
+        const errorDetails = await response.json(); // Parse the JSON response for validation errors
+        console.error("Validation error:", errorDetails);
+        return { success: false, error: errorDetails };
+      } else if (response.status === 500) {
+        const errorText = await response.text(); // Get error message as text
+        console.error("Server error:", errorText);
+        return { success: false, error: errorText };
       } else {
-        const errorText = await response.text();
-        console.error("Registration error:", errorText); // Log the error
-        return errorText;
+        const errorText = await response.text(); // Handle other status codes
+        console.error("Unexpected error:", errorText);
+        return { success: false, error: errorText };
       }
     } catch (error) {
       console.error("Registration error:", error); // Log the error
