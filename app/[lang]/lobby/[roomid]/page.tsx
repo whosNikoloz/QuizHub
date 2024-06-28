@@ -20,7 +20,6 @@ export default function LobbyPage({
   params: { lang, roomid },
 }: {
   params: { lang: Locale; roomid: string };
-  lang: Locale;
 }) {
   const [currentWindow, setCurrentWindow] = useState("waitingUsers");
   const handleWindowChange = (window: string) => {

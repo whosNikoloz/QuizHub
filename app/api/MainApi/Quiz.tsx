@@ -139,7 +139,6 @@ const QuizApi = () => {
       });
       if (response.ok) {
         const quizzes = await response.json();
-        console.log(quizzes);
         return quizzes;
       } else {
         const errorText = await response.text();
