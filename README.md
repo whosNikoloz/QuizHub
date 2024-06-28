@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Realtime Quiz Simulator
 
-## Getting Started
+![Platform Banner](HomePage.png)
 
-First, run the development server:
+Welcome to QuizHub, a full-stack web application designed to facilitate interactive learning and collaboration between teachers and students.
+## Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [Introduction](#Introduction)
+- [Features](#features)
+- [Technologies Used](#technologiesused)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Authentication and Authorization](#authentication-and-authorization)
+- [Real-time Communication](#real-time-communication)
+- [Screenshots](#screenshots)
+- [Contributing](#contributing)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Introduction
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+QuizHub offers a comprehensive platform for educational purposes, focusing on real-time quiz management, interactive rooms, and seamless communication tools for effective teaching and learning experiences.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Technologies Used
 
-## Learn More
+- Frontend: Next.js, Tailwind CSS, NextUI
+- Backend: Firebase, MySQL, Backend ASP.NET Web API
+- Real-time Communication: SignalR WebSocket
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- User authentication and authorization system.
+- Real-time quiz management and room creation.
+- Interactive quizzes with customizable questions and answers.
+- Real-time chat for instant communication in waiting rooms.
+- Real-time updates for user joins and leaves.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Installation
 
-## Deploy on Vercel
+To get started with QuizHub, follow these steps:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone this repository to your local machine.
+2. Install dependencies using your preferred package manager (`npm install` or `yarn install`).
+3. Set up the backend server and database.
+4. Start the development server (`npm start` or `yarn start`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Usage
+
+Explore QuizHub's features to enhance educational experiences:
+
+1. Teachers can authenticate and create quizzes.
+2. Students join rooms using a room ID and username.
+3. Engage in real-time chatting in waiting rooms.
+4. Experience seamless updates for user interactions.
+
+## Authentication and Authorization
+
+Our platform features a robust authentication and authorization system to ensure secure access to user accounts and data. Role-based permissions control user access to different features and functionalities, providing a seamless and personalized experience.
+
+## Real-time Communication
+
+Utilizing SignalR WebSocket, qighutbn enables real-time communication for instant updates and interactions within the platform.
+
+## Screenshots
+
+### Quiz Creator Page
+![Quiz Creator](Quizs.png)
+
+### Registration
+![Login & Registration](Registration.png)
+
+## Contributing
+
+Contributions are welcome! Fork the repository, make your changes, and submit a pull request. Please follow coding standards and guidelines.
