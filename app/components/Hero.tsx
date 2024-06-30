@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import {
   Button,
   Input,
@@ -76,8 +76,13 @@ export const Hero = ({
     }
   };
 
+  const joinRoomRef = useRef<HTMLInputElement>(null);
+
   const handleJoinRoom = () => {
     joinRoomonOpen();
+    setTimeout(() => {
+      joinRoomRef.current?.focus();
+    }, 100); // Adjust the delay as needed
   };
 
   const handleCreateRoom = async () => {
@@ -292,7 +297,8 @@ export const Hero = ({
               <ModalBody>
                 <Input
                   value={roomId}
-                  type="email"
+                  type="text"
+                  ref={joinRoomRef}
                   label={"RoomId"}
                   classNames={{
                     input: ["text-[16px] "],

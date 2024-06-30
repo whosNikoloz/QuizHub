@@ -1,7 +1,7 @@
 "use client";
 
 import Authentication from "@/app/api/user/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Cookies from "universal-cookie";
@@ -113,6 +113,9 @@ export default function AuthModals({
   const [regEmailHasBlurred, setRegEmailHasBlurred] = useState(false);
 
   const [logEmailHasBlurred, setEmailLogHasBlurred] = useState(false);
+
+  const loginRef = useRef<HTMLInputElement>(null);
+  const regRef = useRef<HTMLInputElement>(null);
 
   const auth = Authentication();
 
@@ -364,7 +367,6 @@ export default function AuthModals({
   };
 
   const handleModeToggle = (mode: string) => {
-    console.log("mode", mode);
     if (mode === "login") {
       onOpenLogin();
       onCloseSignup();
@@ -419,6 +421,18 @@ export default function AuthModals({
       onCloseLogin(); // Ensures the login modal is closed when isOpen is false
     }
   }, [isOpen, onOpenLogin, onCloseLogin]);
+  useEffect(() => {
+    if (isOpenLogin) {
+      setTimeout(() => {
+        loginRef.current?.focus();
+      }, 100); // Adjust the delay as needed
+    } else if (isOpenSignup) {
+      setTimeout(() => {
+        regRef.current?.focus();
+      }, 100); // Adjust the delay as needed
+    }
+  }, [isOpenLogin, isOpenSignup]);
+
   return (
     <>
       <header>
@@ -472,6 +486,7 @@ export default function AuthModals({
                 <Input
                   value={loginState.email}
                   type="email"
+                  ref={loginRef}
                   label={loginData.email}
                   classNames={{
                     input: ["text-[16px] "],
@@ -607,6 +622,7 @@ export default function AuthModals({
               <Input
                 type="text"
                 label={regData.username}
+                ref={regRef}
                 classNames={{
                   input: ["text-[16px] "],
                   inputWrapper: ["dark:bg-slate-700"],
